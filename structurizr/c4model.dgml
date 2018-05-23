@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DataVirtualized="false" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="2" Label="AMS" Category="Software System" Description="Assumption Management System&#xA;&#xA;Stores and allows user to manage model versions and model inputs (assumptions)">
+      <Category Ref="Software System" />
+      <Category Ref="Element" />
+    </Node>
+    <Node Id="4" Label="Runs Controller" Category="Software System" Description="Executes model submissions and allows user to monitor and manage submisions">
+      <Category Ref="Software System" />
+      <Category Ref="Element" />
+    </Node>
+    <Node Id="1" Label="AMS User" Category="Person" Description="Modeller, Data Analyst or other users.">
+      <Category Ref="Person" />
+      <Category Ref="Element" />
+    </Node>
+  </Nodes>
+  <Links>
+    <Link Source="2" Target="4" Label="Creates submissio..." Description="Creates submissions and fetches submission status" />
+    <Link Source="1" Target="2" Label="Uses" Description="Uses" />
+    <Link Source="1" Target="4" Label="Monitors and mana..." Description="Monitors and manages submissions" />
+  </Links>
+  <Categories />
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Software System">
+      <Condition Expression="HasCategory('Software System')" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="Background" Value="#1168bd" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Person">
+      <Condition Expression="HasCategory('Person')" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="Background" Value="#08427b" />
+      <Setter Property="Shape" Value="None" />
+      <Setter Property="Icon" Value="https://raw.githubusercontent.com/merijndejonge/Structurizr.Dgml/master/src/Structurizr.Dgml/Shapes/Person.png" />
+    </Style>
+  </Styles>
+  <Properties />
+</DirectedGraph>
