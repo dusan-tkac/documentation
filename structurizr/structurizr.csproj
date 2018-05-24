@@ -7,7 +7,7 @@
     <None Remove="Documentation\AMSSoftwareSystem.md" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Documentation\AMSSoftwareSystem.md">
+    <EmbeddedResource Include="Documentation\Context.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

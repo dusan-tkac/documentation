@@ -288,3 +288,6 @@ __pycache__/
 *.xsd.cs
 structurizr-*.json
 c4model.dgml
+c4model_plant_UML.png
+c4model_plant_UML.txt
+out/*
