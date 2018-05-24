@@ -1,10 +1,11 @@
-# Context
+<!-- # Hidden by Structurizr -->
+<!-- ## Also hidden by Structurizr -->
 
-## Enterprise context
+### Enterprise context
 
 This document describes some of the software systems used by IPRO Supply Chain Planning (SCP).
 
-*Note: The "Software System" and other terms used in this document are terms adopted from the [C4 model](https://c4model.com/)*
+*Note: The "Software System" and other terms used in this document are terms adopted from the [C4 model](https://c4model.com/) - a model for describing software architecture.*
 
 Following diagram provides an overview of majority of related software systems used by SCP:
 
@@ -33,7 +34,7 @@ It is worth noting that some **users outside of SCP** have (or will) have and ac
 
 The rest of this document describes AMS, Hangfire and Runs Controller in greater details.
 
-## AMS and Hangfire System Context
+### AMS and Hangfire System Context
 
 AMS and Hangfire could really be considered as a single software system. Hangfire deployment unit (windows service )is even called "AMS Service".
 
@@ -51,8 +52,6 @@ AMS creates submissions in Runs Controller - submission being a set of model run
 
 ![AMS system context diagram](embed:AMSSystemContext)
 
-## Runs Controller System Context
+### Runs Controller System Context
 
 ![Runs Controller system context diagram](embed:RunsControllerSystemContext)
-
-
