@@ -24,25 +24,39 @@ To summarize this hierarchy:
 
 AMS provides browse and edit screens for all entities of the hierarchy as listed above.
 
-![Browse States](screenshots/BrowseStates.png)
-
-![Add State](screenshots/AddState.png)
+<!-- ![Browse States](Screenshots/BrowseStates.png) -->
+![Browse States](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/BrowseStates.png)
+<!-- ![Add State](Screenshots/AddState.png) -->
+![Add State](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AddState.png)
 
 Users can create instances of all these entities "manually" using edit screens or they can upload their definitions using Excel spreadsheet upload.
 States can be also upload from Excel spreadsheet.
 Excel spreadsheet upload also allows user to create model submissions.
 
-![Upload States, Scenarios, Cases and Submissions](screenshots/Upload.png)
+<!-- ![Upload States, Scenarios, Cases and Submissions](Screenshots/Upload.png) -->
+![Upload States, Scenarios, Cases and Submissions](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/Upload.png)
+<!-- ![Upload Template](Screenshots/UploadTemplate.png) -->
+![Upload Template](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/UploadTemplate.png)
 
-AMS supports a special king of state - **change set**
+AMS supports a special kind of state - **change set**
 Change sets are not used as model inputs. Instead they can be "applied" to another states changing (replacing or removing) their content.
+<!-- ![Apply Change Set](Screenshots/ApplyChangeSet.png) -->
+![Apply Change Set](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ApplyChangeSet.png)
+
 Change sets creation and "application" can be also done via Excel spreadsheet upload.
 
 State values can be edited directly in AMS.
 
 The "State Summary" screen is a general-purpose editing tool for editing of "atomic" values.
 
-![State Summary](screenshots/StateSummary.png)
+<!-- ![State Summary](Screenshots/StateSummary.png) -->
+![State Summary](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateSummary.png)
+
+Another tools that was supposed to work across all value structures is Case Setup Tool. The main idea behind this tool is to a way to generate new states from a selected base state where only selected values will be modified in a specified way in the new states.
+This, however, currently does not work for nested values (see object type system bellow) and this tool is being replaced with a new version.
+
+<!-- ![State Summary](Screenshots/CaseSetupTool.png) -->
+![Case Setup Tool](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseSetupTool.png)
 
 AMS also contains a collection of specialized tools that are used for editing of standardized data structures frequently occurring in states.
 
@@ -53,6 +67,9 @@ These tools are:
 * Marine Paths Editor
 * Mine Port Sequence Editor
 * Marine Paths Editor
+
+<!-- ![State Summary](Screenshots/StockyardLayoutEditor.png) -->
+![Stockyard Layout Editor](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StockyardLayoutEditor.png)
 
 All these specialized tools rely on parts of state being organized in a specific way - the values must be organized using specific object types and properties (see object type system description later in this document).
 

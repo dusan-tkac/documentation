@@ -10,6 +10,10 @@
     <None Remove="Documentation\Screenshots\BrowseStates.png" />
     <None Remove="Documentation\Screenshots\AddState.png" />
     <None Remove="Documentation\Screenshots\Upload.png" />
+    <None Remove="Documentation\Screenshots\UploadTemplate.png" />
+    <None Remove="Documentation\Screenshots\ApplyChangeSet.png" />
+    <None Remove="Documentation\Screenshots\CaseSetupTool.png" />
+    <None Remove="Documentation\Screenshots\StockyardLayoutEditor.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\Context.md">
@@ -28,6 +32,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\Upload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\UploadTemplate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\ApplyChangeSet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\CaseSetupTool.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\StockyardLayoutEditor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
