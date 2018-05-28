@@ -34,6 +34,7 @@ namespace structurizr
             #region Users
 
             Person scpUser = model.AddPerson(Location.Internal, "SCP User", "Modeller, Data Analyst or other users.");
+            Person adminUser = model.AddPerson(Location.Internal, "Administrator", "SCP Administrators.");
             Person externalUser = model.AddPerson(Location.External, "External User", "Other users outside of SCP");
 
             #endregion
@@ -89,6 +90,10 @@ namespace structurizr
             scpUser.Uses(amsSoftwareSystem, "Manages model versions, model inputs and creates submissions");
             scpUser.Uses(runsControllerSoftwareSystem, "Monitors and manages submissions");
             scpUser.Uses(spotfireSoftwareSystem, "Uses dashboards to visualize and analyze data");
+
+            adminUser.Uses(amsSoftwareSystem, "Manages system settings and other protected data");
+            adminUser.Uses(runsControllerSoftwareSystem, "Manages Runs Controller setting (e.g. which clients are active)");
+            adminUser.Uses(hangfireSoftwareSystem, "Manages Hangfire settings; can restart failed jobs etc.");
 
             externalUser.Uses(spotfireSoftwareSystem, "Uses public dashboards or outputs produced by project teams using Spotfire");
 
