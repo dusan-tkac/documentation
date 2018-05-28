@@ -55,7 +55,7 @@ The "State Summary" screen is a general-purpose editing tool for editing of "ato
 Another tools that was supposed to work across all value structures is Case Setup Tool. The main idea behind this tool is to a way to generate new states from a selected base state where only selected values will be modified in a specified way in the new states.
 This, however, currently does not work for nested values (see object type system bellow) and this tool is being replaced with a new version.
 
-<!-- ![State Summary](Screenshots/CaseSetupTool.png) -->
+<!-- ![Case Setup Tool](Screenshots/CaseSetupTool.png) -->
 ![Case Setup Tool](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseSetupTool.png)
 
 AMS also contains a collection of specialized tools that are used for editing of standardized data structures frequently occurring in states.
@@ -68,7 +68,7 @@ These tools are:
 * Mine Port Sequence Editor
 * Marine Paths Editor
 
-<!-- ![State Summary](Screenshots/StockyardLayoutEditor.png) -->
+<!-- ![Stockyard Layout Editor](Screenshots/StockyardLayoutEditor.png) -->
 ![Stockyard Layout Editor](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StockyardLayoutEditor.png)
 
 All these specialized tools rely on parts of state being organized in a specific way - the values must be organized using specific object types and properties (see object type system description later in this document).
@@ -76,10 +76,10 @@ All these specialized tools rely on parts of state being organized in a specific
 TODO: finish navigation overview:
 
 * Dashboard
-    ** overview of queued, running and recently finished submissions with links to Runs Controller web site for current user and all users
-    ** navigation to main browse screens (projects, scenarios, cases and states)
-    ** navigation to bulk import screens (states and submissions)
-    ** navigation to user's favorite entities
+  * overview of queued, running and recently finished submissions with links to Runs Controller web site for current user and all users
+  * navigation to main browse screens (projects, scenarios, cases and states)
+  * navigation to bulk import screens (states and submissions)
+  * navigation to user's favorite entities
 * Browse screens for main entities (Projects, Scenarios, Cases, States)
 * State validation
 

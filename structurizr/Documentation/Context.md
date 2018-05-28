@@ -5,7 +5,7 @@
 
 This document describes some of the software systems used by IPRO Supply Chain Planning (SCP).
 
-*Note: The "Software System" and other terms used in this document are terms adopted from the [C4 model](https://c4model.com/) - a model for describing software architecture.*
+> Note: The "Software System" and other terms used in this document are terms adopted from the [C4 model](https://c4model.com/) - a model for describing software architecture.*
 
 Following diagram provides an overview of majority of related software systems used by SCP:
 
