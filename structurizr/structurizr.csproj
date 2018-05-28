@@ -4,10 +4,30 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Documentation\AMSSoftwareSystem.md" />
+    <None Remove="Documentation\Context.md" />
+    <None Remove="Documentation\FunctionalOverview.md" />
+    <None Remove="Documentation\Screenshots\StateSummary.png" />
+    <None Remove="Documentation\Screenshots\BrowseStates.png" />
+    <None Remove="Documentation\Screenshots\AddState.png" />
+    <None Remove="Documentation\Screenshots\Upload.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\Context.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\FunctionalOverview.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\StateSummary.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\BrowseStates.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\AddState.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\Upload.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

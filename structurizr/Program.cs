@@ -179,16 +179,8 @@ namespace structurizr
 
             var documentationFolderPath = Path.Combine(AppContext.BaseDirectory, "Documentation");
 
-            var amsDocPath = Path.Combine(documentationFolderPath, "Context.md");
-            var amsDocFi = new FileInfo(amsDocPath);
-
-            template.AddContextSection(amsSoftwareSystem, amsDocFi);
-
-            var rcDocPath = Path.Combine(documentationFolderPath, "RunsControllerContext.md");
-            var rcDocFi = new FileInfo(rcDocPath);
-
-            // template.AddContextSection(runsControllerSoftwareSystem, rcDocFi);
-
+            template.AddContextSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Context.md")));
+            template.AddFunctionalOverviewSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "FunctionalOverview.md")));
             
             #endregion
 
