@@ -1,7 +1,7 @@
 <!-- # Hidden by Structurizr -->
 <!-- ## Also hidden by Structurizr -->
 
-### Enterprise context
+### System Landscape
 
 This document describes some of the software systems used by IPRO Supply Chain Planning (SCP).
 
@@ -9,7 +9,7 @@ This document describes some of the software systems used by IPRO Supply Chain P
 
 Following diagram provides an overview of majority of related software systems used by SCP:
 
-![Enterprise context diagram](embed:EnterpriseContext)
+![System Landscape diagram](embed:EnterpriseContext)
 
 The SCP "is in the business" of answering question (most often) related to supply chain by creating and running models and analyzing and interpreting results of these model runs.
 

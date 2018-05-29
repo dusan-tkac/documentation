@@ -14,6 +14,7 @@
     <None Remove="Documentation\Screenshots\ApplyChangeSet.png" />
     <None Remove="Documentation\Screenshots\CaseSetupTool.png" />
     <None Remove="Documentation\Screenshots\StockyardLayoutEditor.png" />
+    <None Remove="Documentation\Screenshots\ObjectTypeViewer.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\Context.md">
@@ -44,6 +45,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\StockyardLayoutEditor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\ObjectTypeViewer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
