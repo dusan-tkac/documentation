@@ -83,6 +83,11 @@ namespace structurizr
                 "Control Framework", 
                 "Collection of configurable SSIS packages running as SQL jobs perfroming data-centric background and reccuring tasks");
 
+            SoftwareSystem p2cModelDevelopmentSoftwareSystem = model.AddSoftwareSystem(
+                Location.Internal, 
+                "P2C Model Development", 
+                "Toolset for development and testing of P2C model");
+
             #endregion
 
             #region Relationships (what uses what)
@@ -116,6 +121,8 @@ namespace structurizr
             spotfireSoftwareSystem.Uses(modelOutputsStorageSoftwareSystem, "Visualizes model outputs");
             spotfireSoftwareSystem.Uses(analyticalDataStoreSoftwareSystem, "Visualizes other available data");
             spotfireSoftwareSystem.Uses(runsControllerSoftwareSystem, "Reads submission details for environment performance dashboard");
+
+            p2cModelDevelopmentSoftwareSystem.Uses(amsSoftwareSystem, "Exports model versions");
 
             #endregion
 

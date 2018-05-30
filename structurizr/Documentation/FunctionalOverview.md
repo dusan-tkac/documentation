@@ -89,6 +89,7 @@ All these specialized tools rely on parts of state being organized in a specific
 
 Case Matrix is a tool that allows user to easily create new cases, set their input states and execute them (create submissions and push them to Runs Controller) in bulk.
 
+<!--![Case Matrix](Screenshots/CaseMatrix.png) -->
 ![Case Matrix](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseMatrix.png)
 
 ##### Asset Maps
@@ -99,19 +100,43 @@ It displays state objects and their values (including calculated values) in layo
 
 Asset maps are fully configurable by the user.
 
-![Case Matrix](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AssetMap.png)
+<!--![Asset Maps](Screenshots/AssetMap.png) -->
+![Asset Maps](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AssetMap.png)
 
 ##### State Validation
 
-* [ ] TODO: describe and attach screenshot
+State Validation displays same value as Asset Maps - it uses configured asset maps to retrieve the list of values as well.
+The values are displayed in the table and it also allows to display values from multiple state side-by-side allowing for their comparison.
+
+Users can also record their comments for each value.
+
+<!--![State Validation - selection of maps and states](Screenshots/StateValidationSelection.png) -->
+![State Validation - selection of maps and states](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateValidationSelection.png)
+
+<!--![State Validation - comparing values](Screenshots/StateValidationResults.png) -->
+![State Validation - comparing values](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateValidationResults.png)
 
 ##### State Comparison
 
-* [ ] TODO: describe and attach screenshot
+State comparison displays two selected states side-by-side in the tree view format (same as state summary) and highlights differences.
+
+User can also export the difference between states as a change set.
+
+<!--![State Comparison](Screenshots/StateComparison.png) -->
+![State Comparison](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateComparison.png)
 
 ##### Actual Data Import
 
-* [ ] TODO: describe and attach screenshot
+This screen allows for import of actual data into AMS in the form of change sets.
+
+Actual data are coming to AMS as results from configured stored procedures.
+
+Users can define new procedures to be used too.
+
+The import itself is executed as a background job by Hangfire.
+
+<!--![Import actual data as a change set](Screenshots/ImportActualDataToChangeset.png) -->
+![Import actual data as a change set](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ImportActualDataToChangeset.png)
 
 #### Object type system
 
@@ -183,6 +208,18 @@ There is also a special Object Type Viewer/Editor available in AMS.
 #### Control Framework Configuration
 
 #### Model Versions
+
+AMS data structures in theory support multiple model types, models and model platforms.
+
+In practice, the model that is being used is P2C (Pit to Customer).
+
+Versions of this model can be created in AMS "manually" using Model Version Edit screen, but they are typically imported to AMS by model developers directly from their development environment.
+
+AMS does not actually store model executable files or other artifacts. It only stores model version "metadata" such as a list of parent model versions and list of model version parameters.
+
+The list of parameters is used to dynamically generate user interface for submission creation or to validate submission parameters if submissions are imported from Excel spreadsheet.
+
+[] TODO: include screenshot
 
 #### Submission Progress
 

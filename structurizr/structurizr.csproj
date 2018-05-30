@@ -6,9 +6,15 @@
   <ItemGroup>
     <None Remove="Documentation\Context.md" />
     <None Remove="Documentation\FunctionalOverview.md" />
+    <None Remove="Documentation\Screenshots\AssetMap.png" />
+    <None Remove="Documentation\Screenshots\CaseMatrix.png" />
+    <None Remove="Documentation\Screenshots\ImportActualDataToChangeset.png" />
+    <None Remove="Documentation\Screenshots\StateComparison.png" />
     <None Remove="Documentation\Screenshots\StateSummary.png" />
     <None Remove="Documentation\Screenshots\BrowseStates.png" />
     <None Remove="Documentation\Screenshots\AddState.png" />
+    <None Remove="Documentation\Screenshots\StateValidationResults.png" />
+    <None Remove="Documentation\Screenshots\StateValidationSelection.png" />
     <None Remove="Documentation\Screenshots\Upload.png" />
     <None Remove="Documentation\Screenshots\UploadTemplate.png" />
     <None Remove="Documentation\Screenshots\ApplyChangeSet.png" />
@@ -23,6 +29,18 @@
     <EmbeddedResource Include="Documentation\FunctionalOverview.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\AssetMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\CaseMatrix.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\ImportActualDataToChangeset.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\StateComparison.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\StateSummary.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -30,6 +48,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\AddState.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\StateValidationResults.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\StateValidationSelection.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\Upload.png">
