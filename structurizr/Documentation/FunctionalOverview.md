@@ -68,7 +68,7 @@ This, however, currently does not work for nested values (see object type system
 <!-- ![Case Setup Tool](Screenshots/CaseSetupTool.png) -->
 ![Case Setup Tool](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseSetupTool.png)
 
-##### Specialized tools
+##### Specialized tools for state editing
 
 AMS also contains a collection of specialized tools that are used for editing of standardized data structures frequently occurring in states.
 
@@ -84,6 +84,34 @@ These tools are:
 ![Stockyard Layout Editor](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StockyardLayoutEditor.png)
 
 All these specialized tools rely on parts of state being organized in a specific way - the values must be organized using specific object types and properties (see object type system description later in this document).
+
+##### Case Matrix
+
+Case Matrix is a tool that allows user to easily create new cases, set their input states and execute them (create submissions and push them to Runs Controller) in bulk.
+
+![Case Matrix](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseMatrix.png)
+
+##### Asset Maps
+
+Asset Maps allow user to easily see most important values in their state. It can not only display atomic values but also calculated values.
+
+It displays state objects and their values (including calculated values) in layout defined by user.
+
+Asset maps are fully configurable by the user.
+
+![Case Matrix](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AssetMap.png)
+
+##### State Validation
+
+* [ ] TODO: describe and attach screenshot
+
+##### State Comparison
+
+* [ ] TODO: describe and attach screenshot
+
+##### Actual Data Import
+
+* [ ] TODO: describe and attach screenshot
 
 #### Object type system
 
@@ -147,6 +175,25 @@ There is also a special Object Type Viewer/Editor available in AMS.
 
 <!-- ![Object Type Viewer/Editor](Screenshots/ObjectTypeViewer.png) -->
 ![Object Type Viewer/Editor](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ObjectTypeViewer.png)
+
+#### Knowledge Items
+
+* [ ] TODO: describe and attach screenshot
+
+#### Control Framework Configuration
+
+#### Model Versions
+
+#### Submission Progress
+
+#### Type System Versions
+
+#### Merging States using Modules
+
+#### Other Reference Data
+
+* Customers
+* Project Types
 
 #### Navigation
 
