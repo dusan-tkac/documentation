@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>AMS Functional Overview</title>
+</head>
+<body>
+
+    <h3 id="ams-functional-overview">AMS Functional Overview</h3>
+<p>The main function of AMS is to manage and allow for editing of model inputs and to allow user to create (P2C) submissions.</p>
+<p>Values, that are used as model inputs, are organized into a structure called <strong>state</strong>.</p>
+<p>States are used as input states for cases. <strong>Case</strong> (model case) binds together an input state and model version. Users create submissions for cases - they specify model run configuration (submission parameters) and number of seeds (packages) in the submission.</p>
+<p>Cases are further grouped into <strong>scenarios</strong> and scenarios are grouped into <strong>projects</strong>.</p>
+<p>To summarize this hierarchy:</p>
+<ul>
+<li>projects have many scenarios</li>
+<li>scenarios have many cases</li>
+<li>case has one input state</li>
+<li>case can have many output states (however, this feature in not being used)</li>
+<li>case has one model version</li>
+<li>case has one or more model submissions (usually one)</li>
+<li>submission has many seeds (packages)</li>
+</ul>
+<blockquote>
+<p>Output states in AMS were supposed to hold &quot;important&quot; model outputs and AMS was supposed to provide basic comparison of input state and output state(s).
+This functionality was never implemented in AMS.</p>
+</blockquote>
+<h4 id="management-and-editing-of-model-inputs">Management and editing of model inputs</h4>
+<h5 id="project-hierarchy-browsing-and-editing">Project hierarchy browsing and editing</h5>
+<p>AMS provides browse and edit screens for all entities of the hierarchy as listed above.</p>
+<!-- ![Browse States](Screenshots/BrowseStates.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/BrowseStates.png" alt="Browse States" /></p>
+<!-- ![Add State](Screenshots/AddState.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AddState.png" alt="Add State" /></p>
+<p>Users can create instances of all these entities &quot;manually&quot; using edit screens or they can upload their definitions using Excel spreadsheet upload.
+States can be also upload from Excel spreadsheet.
+Excel spreadsheet upload also allows user to create model submissions.</p>
+<h5 id="bulk-upload-for-scenarios-cases-submissions-and-states">Bulk upload for scenarios, cases, submissions and states</h5>
+<!-- ![Upload States, Scenarios, Cases and Submissions](Screenshots/Upload.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/Upload.png" alt="Upload States, Scenarios, Cases and Submissions" /></p>
+<!-- ![Upload Template](Screenshots/UploadTemplate.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/UploadTemplate.png" alt="Upload Template" /></p>
+<h5 id="change-sets">Change sets</h5>
+<p>AMS supports a special kind of state - <strong>change set</strong>
+Change sets are not used as model inputs. Instead they can be &quot;applied&quot; to another states changing (replacing or removing) their content.</p>
+<!-- ![Apply Change Set](Screenshots/ApplyChangeSet.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ApplyChangeSet.png" alt="Apply Change Set" /></p>
+<p>Change sets creation and &quot;application&quot; can be also done via Excel spreadsheet upload.</p>
+<h5 id="state-summary">State summary</h5>
+<p>State values can be edited directly in AMS.</p>
+<p>The &quot;State Summary&quot; screen is a general-purpose editing tool for editing of &quot;atomic&quot; values.</p>
+<!-- ![State Summary](Screenshots/StateSummary.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateSummary.png" alt="State Summary" /></p>
+<h5 id="case-setup-tool">Case setup tool</h5>
+<p>Another tools that was supposed to work across all value structures is Case Setup Tool. The main idea behind this tool is to a way to generate new states from a selected base state where only selected values will be modified in a specified way in the new states.
+This, however, currently does not work for nested values (see object type system bellow) and this tool is being replaced with a new version.</p>
+<!-- ![Case Setup Tool](Screenshots/CaseSetupTool.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseSetupTool.png" alt="Case Setup Tool" /></p>
+<h5 id="specialized-tools-for-state-editing">Specialized tools for state editing</h5>
+<p>AMS also contains a collection of specialized tools that are used for editing of standardized data structures frequently occurring in states.</p>
+<p>These tools are:</p>
+<ul>
+<li>Stockyard Layout Editor - as the name says, this is used for editing of stockyard definitions</li>
+<li>Outage Plans Editor - editing of outage plans and maintenance plans</li>
+<li>Marine Paths Editor</li>
+<li>Mine Port Sequence Editor</li>
+<li>Marine Paths Editor</li>
+</ul>
+<!-- ![Stockyard Layout Editor](Screenshots/StockyardLayoutEditor.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StockyardLayoutEditor.png" alt="Stockyard Layout Editor" /></p>
+<p>All these specialized tools rely on parts of state being organized in a specific way - the values must be organized using specific object types and properties (see object type system description later in this document).</p>
+<h5 id="case-matrix">Case Matrix</h5>
+<p>Case Matrix is a tool that allows user to easily create new cases, set their input states and execute them (create submissions and push them to Runs Controller) in bulk.</p>
+<!--![Case Matrix](Screenshots/CaseMatrix.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/CaseMatrix.png" alt="Case Matrix" /></p>
+<h5 id="asset-maps">Asset Maps</h5>
+<p>Asset Maps allow user to easily see most important values in their state. It can not only display atomic values but also calculated values.</p>
+<p>It displays state objects and their values (including calculated values) in layout defined by user.</p>
+<p>Asset maps are fully configurable by the user.</p>
+<!--![Asset Maps](Screenshots/AssetMap.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AssetMap.png" alt="Asset Maps" /></p>
+<h5 id="state-validation">State Validation</h5>
+<p>State Validation displays same value as Asset Maps - it uses configured asset maps to retrieve the list of values as well.
+The values are displayed in the table and it also allows to display values from multiple state side-by-side allowing for their comparison.</p>
+<p>Users can also record their comments for each value.</p>
+<!--![State Validation - selection of maps and states](Screenshots/StateValidationSelection.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateValidationSelection.png" alt="State Validation - selection of maps and states" /></p>
+<!--![State Validation - comparing values](Screenshots/StateValidationResults.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateValidationResults.png" alt="State Validation - comparing values" /></p>
+<h5 id="state-comparison">State Comparison</h5>
+<p>State comparison displays two selected states side-by-side in the tree view format (same as state summary) and highlights differences.</p>
+<p>User can also export the difference between states as a change set.</p>
+<!--![State Comparison](Screenshots/StateComparison.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/StateComparison.png" alt="State Comparison" /></p>
+<h5 id="actual-data-import">Actual Data Import</h5>
+<p>This screen allows for import of actual data into AMS in the form of change sets.</p>
+<p>Actual data are coming to AMS as results from configured stored procedures.</p>
+<p>Users can define new procedures to be used too.</p>
+<p>The import itself is executed as a background job by Hangfire.</p>
+<!--![Import actual data as a change set](Screenshots/ImportActualDataToChangeset.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ImportActualDataToChangeset.png" alt="Import actual data as a change set" /></p>
+<h4 id="object-type-system">Object type system</h4>
+<p>Values in AMS are organized within states into hierarchies.
+Structure (schema) of the hierarchy is defined using object type system.</p>
+<h5 id="introduction-to-ams-object-type-system">Introduction to AMS object type system</h5>
+<p>The AMS object type system design was inspired by object-oriented design.</p>
+<p>Elements of the object type system are:</p>
+<ul>
+<li>object types</li>
+<li>properties</li>
+<li>property options (if property represents an enumeration of possible values)</li>
+<li>object type properties</li>
+<li>data types</li>
+<li>units of measures</li>
+</ul>
+<p>Each value in AMS has to &quot;belong&quot; to an object.
+Objects are &quot;instances&quot; of object types (e.g. &quot;Car Dumper 1&quot; is an instance of the &quot;Car Dumper&quot; object type).
+Each object type has a list of object type properties (e.g object type &quot;Car Dumper&quot; has object type properties &quot;Car Dumper Net Rate&quot;, &quot;Car Dumper Throughput&quot; etc.).
+Each object type property references a property. Property represent a well-known term that can be used for multiple object types (e.g. object type property &quot;Car Dumper Net Rate&quot; references property &quot;Net Rate&quot;. Property &quot;Net Rate&quot; is also used for other types of equipment.)</p>
+<p>Each value then references an object and an object type property.</p>
+<blockquote>
+<p>In fact there is a separate entity that represents this relationship called object property.
+This entity is technically not needed anymore but remains in AMS for historical reasons.</p>
+</blockquote>
+<p>Object types in AMS represent various equipment types, nested data structures (e.g. distributions), model configuration that needs to be a part of an input state etc.</p>
+<p>There are two categories of object types in AMS:</p>
+<ul>
+<li>&quot;Not-owned&quot;</li>
+<li>&quot;Owned&quot;</li>
+</ul>
+<p>Object type is <strong>not-owned</strong> if its instances (objects of this type) need to have an identity (e.g. car dumpers need to have an identity - unique identifier - so that they can be tell apart). These object with identity (not-owned objects) are sometimes called top-level objects because in state summary they are at the top of the hierarchy.</p>
+<p>Object type is <strong>owned</strong> if its instances don't have to (or can't) have an identity (e.g. distribution objects don't have to have an identity, because distribution objects are always used as a values of some object type property.) Owned objects are always used as values of some object type property. It can be a property of not-owned or owned object, but there always is a &quot;parent&quot; for such object. These objects are &quot;nested&quot; in the hierarchy.</p>
+<p>Another feature of AMS object type system is a support of inheritance of object types.
+An object type can be used as a parent for another object type(s). This derived type then &quot;inherits&quot; object type properties of its parent.</p>
+<p>AMS also supports arrays. All arrays in AMS are arrays of objects. These object can be not-owned (then it's really an array of object references) or owned (and then owned objects are really nested in the array with all their values). Arrays are either defined as homogeneous (all elements are of the same object type (or have same parent object type)) or heterogeneous (array elements can be of various types).
+Array elements have 1-based indices.</p>
+<h5 id="maintenance-of-object-type-system">Maintenance of object type system</h5>
+<p>AMS users have an option to create new or change existing</p>
+<ul>
+<li>object types</li>
+<li>object type properties</li>
+<li>properties</li>
+<li>property options</li>
+<li>units of measure</li>
+</ul>
+<blockquote>
+<p>object properties are created automatically</p>
+<p>data types are fixed and cannot be modified</p>
+</blockquote>
+<p>There are standard browse and edit screens for all entities listed above.</p>
+<p>There is also a special Object Type Viewer/Editor available in AMS.</p>
+<!-- ![Object Type Viewer/Editor](Screenshots/ObjectTypeViewer.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ObjectTypeViewer.png" alt="Object Type Viewer/Editor" /></p>
+<h4 id="knowledge-items">Knowledge Items</h4>
+<p>Current version AMS was built with traceability being one of the most important drivers.
+The original requirement was for each &quot;piece of data&quot; entered into AMS to have a attached proof of source - knowledge item.</p>
+<p>AMS therefore contains comprehensive set of functionality for defining and using knowledge items for nearly all data entities.</p>
+<p>Knowledge items have</p>
+<ul>
+<li>type (e.g Definition, Calculation)</li>
+<li>category (e.g. IPS, DPS, Acquired)</li>
+<li>data source type (e.g. Document, 1SAP, MQ2)</li>
+<li>calculation tool/method (e.g. Excel Template, Spotfire, Matlab Script)</li>
+</ul>
+<p>There is also a configuration matrix defining which of what these attributes of a knowledge item can be so the knowledge item can be attached to a particular data entity.</p>
+<p>The rules on knowledge items usage have since been relaxed, but knowledge item must still be referenced when importing state data to AMS.</p>
+<!--![Knowledge Item](Screenshots/KnowledgeItem.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/KnowledgeItem.png" alt="Knowledge Item" /></p>
+<h4 id="control-framework-configuration">Control Framework Configuration</h4>
+<p>Control Framework is the original solution for background processing and recurrent jobs.
+Its functionality is implemented as a set of SSIS packages that are executed by SQL Server jobs with supporting collection of stored procedures and configuration tables.</p>
+<p>AMS provide user interface for Control Framework configuration.</p>
+<p>Some of the original background and recurrent jobs were moved from Control Framework to Hangfire.
+The remaining jobs mostly load data to Analytical Data Storage - either from external systems or from Models Outputs Storage.</p>
+<p>[ ] TODO Create and reference Control Framework documentation</p>
+<h4 id="model-versions">Model Versions</h4>
+<p>AMS data structures in theory support multiple model types, models and model platforms.</p>
+<p>In practice, the model that is being used is P2C (Pit to Customer).</p>
+<p>Versions of this model can be created in AMS &quot;manually&quot; using Model Version Edit screen, but they are typically imported to AMS by model developers directly from their development environment.</p>
+<p>AMS does not actually store model executable files or other artifacts. It only stores model version &quot;meta-data&quot; such as a list of parent model versions and list of model version parameters.</p>
+<p>The list of parameters is used to dynamically generate user interface for submission creation or to validate submission parameters if submissions are imported from Excel spreadsheet.</p>
+<!--![Model Version Details](Screenshots/ModelVersionDetails.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ModelVersionDetails.png" alt="Model Version Details" /></p>
+<!--![Dynamically generated parameters based on Model Version definition](Screenshots/ModelVersionParameters.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ModelVersionParameters.png" alt="Dynamically generated parameters based on Model Version definition" /></p>
+<h4 id="submission-progress">Submission Progress</h4>
+<p>Submission Progress screen allows user to search through existing submissions and then check their status as they progress through the processing stages.</p>
+<!--![Submission Progress - Search](Screenshots/SubmissionProgressSearch.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionProgressSearch.png" alt="Submission Progress - Search" /></p>
+<p>Details of the submission progress show a list of submission packages with links to package details in Runs Controller Portal.</p>
+<p>It also shows which package outputs have been registered; if post-processing package has been created and what is it's status.</p>
+<p>It also shows which pot-processed outputs where loaded to database (or Model Outputs Storage).</p>
+<!--![Submission Progress - Search](Screenshots/SubmissionProgressDetails.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionProgressDetails.png" alt="Submission Progress - Search" /></p>
+<h4 id="type-system-versions">Type System Versions</h4>
+<p>Type System Versions and modules are an attempt to resolve a problem of AMS inputs states being too &quot;big&quot; - typical state contains tens of thousands of individual values.</p>
+<p>Although state have really complex structure, for a particular project only certain groups of values are changed between scenarios and cases.</p>
+<p>Also between projects, there are often differences limited to certain groups of values.</p>
+<p>Type System Version and its modules is a way to identify and specify these groups of values are often imported together as change sets and that are often copied from one state to another.</p>
+<p><em>Module</em> defines such group of values by listing object type properties.</p>
+<p>Type system version is then a collection of these modules.</p>
+<p>By having an option to create multiple type system versions we support changes in the Object Type System required by new model versions (when new object type properties are created or existing object type properties are made inactive) and changing definitions of modules.</p>
+<p>Defined type system version modules can be used to filter displayed parts of a state in state summary and state comparison.
+They can be also used to simplify merging of two states.</p>
+<h4 id="merging-states-using-modules">Merging States using Modules</h4>
+<h4 id="other-reference-data">Other Reference Data</h4>
+<ul>
+<li>Customers</li>
+<li>Project Types</li>
+</ul>
+<h4 id="navigation">Navigation</h4>
+<ul>
+<li>Dashboard
+<ul>
+<li>overview of queued, running and recently finished submissions with links to Runs Controller web site for current user and all users</li>
+<li>navigation to main browse screens (projects, scenarios, cases and states)</li>
+<li>navigation to bulk import screens (states and submissions)</li>
+<li>navigation to user's favorite entities</li>
+</ul>
+</li>
+<li>Browse screens for main entities (Projects, Scenarios, Cases, States)</li>
+<li>State validation</li>
+</ul>
+<h4 id="hangfire-ams-service-functional-overview">Hangfire (AMS Service) Functional Overview</h4>
+<h3 id="runs-controller-functional-overview">Runs Controller Functional Overview</h3>
+<p>This is functional overview</p>
+
+
+</body>
+</html>

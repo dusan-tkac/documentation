@@ -9,18 +9,27 @@
     <None Remove="Documentation\Screenshots\AssetMap.png" />
     <None Remove="Documentation\Screenshots\CaseMatrix.png" />
     <None Remove="Documentation\Screenshots\ImportActualDataToChangeset.png" />
+    <None Remove="Documentation\Screenshots\KnowledgeItem.png" />
+    <None Remove="Documentation\Screenshots\ModelVersionDetails.png" />
+    <None Remove="Documentation\Screenshots\ModelVersionParameters.png" />
     <None Remove="Documentation\Screenshots\StateComparison.png" />
     <None Remove="Documentation\Screenshots\StateSummary.png" />
     <None Remove="Documentation\Screenshots\BrowseStates.png" />
     <None Remove="Documentation\Screenshots\AddState.png" />
     <None Remove="Documentation\Screenshots\StateValidationResults.png" />
     <None Remove="Documentation\Screenshots\StateValidationSelection.png" />
+    <None Remove="Documentation\Screenshots\SubmissionProgressSearch.png" />
     <None Remove="Documentation\Screenshots\Upload.png" />
     <None Remove="Documentation\Screenshots\UploadTemplate.png" />
     <None Remove="Documentation\Screenshots\ApplyChangeSet.png" />
     <None Remove="Documentation\Screenshots\CaseSetupTool.png" />
     <None Remove="Documentation\Screenshots\StockyardLayoutEditor.png" />
     <None Remove="Documentation\Screenshots\ObjectTypeViewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\Screenshots\SubmissionProgressSearch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\Context.md">
@@ -36,6 +45,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\ImportActualDataToChangeset.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\KnowledgeItem.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\ModelVersionDetails.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\ModelVersionParameters.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\StateComparison.png">

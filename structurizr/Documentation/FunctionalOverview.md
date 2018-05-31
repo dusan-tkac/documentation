@@ -18,7 +18,8 @@ To summarize this hierarchy:
 * case has one or more model submissions (usually one)
 * submission has many seeds (packages)
 
-> Output states in AMS were supposed to hold "important" model outputs and AMS was supposed to provide basic comparison of input state and output state(s). This functionality was never implemented in AMS.
+> Output states in AMS were supposed to hold "important" model outputs and AMS was supposed to provide basic comparison of input state and output state(s).
+> This functionality was never implemented in AMS.
 
 #### Management and editing of model inputs
 
@@ -162,7 +163,8 @@ Each object type has a list of object type properties (e.g object type "Car Dump
 Each object type property references a property. Property represent a well-known term that can be used for multiple object types (e.g. object type property "Car Dumper Net Rate" references property "Net Rate". Property "Net Rate" is also used for other types of equipment.)
 
 Each value then references an object and an object type property.
-> In fact there is a separate entity that represents this relationship called object property. This entity is technically not needed anymore but remains in AMS for historical reasons.
+> In fact there is a separate entity that represents this relationship called object property. 
+> This entity is technically not needed anymore but remains in AMS for historical reasons.
 
 Object types in AMS represent various equipment types, nested data structures (e.g. distributions), model configuration that needs to be a part of an input state etc.
 
@@ -192,6 +194,7 @@ AMS users have an option to create new or change existing
 * units of measure
 
 > object properties are created automatically
+> 
 > data types are fixed and cannot be modified
 
 There are standard browse and edit screens for all entities listed above.
@@ -203,9 +206,36 @@ There is also a special Object Type Viewer/Editor available in AMS.
 
 #### Knowledge Items
 
-* [ ] TODO: describe and attach screenshot
+Current version AMS was built with traceability being one of the most important drivers.
+The original requirement was for each "piece of data" entered into AMS to have a attached proof of source - knowledge item.
+
+AMS therefore contains comprehensive set of functionality for defining and using knowledge items for nearly all data entities.
+
+Knowledge items have
+
+* type (e.g Definition, Calculation)
+* category (e.g. IPS, DPS, Acquired)
+* data source type (e.g. Document, 1SAP, MQ2)
+* calculation tool/method (e.g. Excel Template, Spotfire, Matlab Script)
+
+There is also a configuration matrix defining which of what these attributes of a knowledge item can be so the knowledge item can be attached to a particular data entity.
+
+The rules on knowledge items usage have since been relaxed, but knowledge item must still be referenced when importing state data to AMS.
+
+<!--![Knowledge Item](Screenshots/KnowledgeItem.png) -->
+![Knowledge Item](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/KnowledgeItem.png)
 
 #### Control Framework Configuration
+
+Control Framework is the original solution for background processing and recurrent jobs.
+Its functionality is implemented as a set of SSIS packages that are executed by SQL Server jobs with supporting collection of stored procedures and configuration tables.
+
+AMS provide user interface for Control Framework configuration.
+
+Some of the original background and recurrent jobs were moved from Control Framework to Hangfire.
+The remaining jobs mostly load data to Analytical Data Storage - either from external systems or from Models Outputs Storage.
+
+[ ] TODO Create and reference Control Framework documentation
 
 #### Model Versions
 
@@ -215,15 +245,52 @@ In practice, the model that is being used is P2C (Pit to Customer).
 
 Versions of this model can be created in AMS "manually" using Model Version Edit screen, but they are typically imported to AMS by model developers directly from their development environment.
 
-AMS does not actually store model executable files or other artifacts. It only stores model version "metadata" such as a list of parent model versions and list of model version parameters.
+AMS does not actually store model executable files or other artifacts. It only stores model version "meta-data" such as a list of parent model versions and list of model version parameters.
 
 The list of parameters is used to dynamically generate user interface for submission creation or to validate submission parameters if submissions are imported from Excel spreadsheet.
 
-[] TODO: include screenshot
+<!--![Model Version Details](Screenshots/ModelVersionDetails.png) -->
+![Model Version Details](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ModelVersionDetails.png)
+
+<!--![Dynamically generated parameters based on Model Version definition](Screenshots/ModelVersionParameters.png) -->
+![Dynamically generated parameters based on Model Version definition](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/ModelVersionParameters.png)
 
 #### Submission Progress
 
+Submission Progress screen allows user to search through existing submissions and then check their status as they progress through the processing stages.
+
+<!--![Submission Progress - Search](Screenshots/SubmissionProgressSearch.png) -->
+![Submission Progress - Search](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionProgressSearch.png)
+
+Details of the submission progress show a list of submission packages with links to package details in Runs Controller Portal.
+
+It also shows which package outputs have been registered; if post-processing package has been created and what is it's status.
+
+It also shows which pot-processed outputs where loaded to database (or Model Outputs Storage).
+
+<!--![Submission Progress - Search](Screenshots/SubmissionProgressDetails.png) -->
+![Submission Progress - Search](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionProgressDetails.png)
+
 #### Type System Versions
+
+Type System Versions and modules are an attempt to resolve a problem of AMS inputs states being too "big" - typical state contains tens of thousands of individual values.
+
+Although state have really complex structure, for a particular project only certain groups of values are changed between scenarios and cases.
+
+Also between projects, there are often differences limited to certain groups of values.
+
+Type System Version and its modules is a way to identify and specify these groups of values are often imported together as change sets and that are often copied from one state to another.
+
+*Module* defines such group of values by listing object type properties.
+
+Type system version is then a collection of these modules.
+
+By having an option to create multiple type system versions we support changes in the Object Type System required by new model versions (when new object type properties are created or existing object type properties are made inactive) and changing definitions of modules.
+
+Defined type system version modules can be used to filter displayed parts of a state in state summary and state comparison.
+They can be also used to simplify merging of two states.
+
+[] TODO explain why objects and model version can be linked to type system version
 
 #### Merging States using Modules
 
