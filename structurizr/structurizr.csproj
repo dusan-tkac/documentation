@@ -32,8 +32,12 @@
     <None Remove="Documentation\DataModels\ObjectsAndValues.png" />
     <None Remove="Documentation\DataModels\ObjectTypeSystem.png" />
     <None Remove="Documentation\DataModels\ProjectHierarchy.png" />
+    <None Remove="Documentation\SoftwareArchitecture.md" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Documentation\SoftwareArchitecture.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\HangfireJobDetails.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

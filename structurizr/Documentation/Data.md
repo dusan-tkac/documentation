@@ -67,7 +67,7 @@ The existence of object link and array values enables for values to be organized
 
 Following diagram displays main entities of the Runs Controller data model:
 
-![Runs Controller Project Hierarchy](DataModels/RunsControllerDataModel.png) 
+<!--![Runs Controller Project Hierarchy](DataModels/RunsControllerDataModel.png) -->
 ![Runs Controller Project Hierarchy](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/RunsControllerDataModel.png)
 
 **Package** information entity (package) represents a unit of execution.

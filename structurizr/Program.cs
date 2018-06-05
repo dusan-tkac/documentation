@@ -64,41 +64,83 @@ namespace structurizr
                 "and recurring tasks (like model outputs registration and retention policy)");
 
             SoftwareSystem analyticalDataStoreSoftwareSystem = model.AddSoftwareSystem(
-                Location.Internal, 
-                "Analytical Data Store", 
+                Location.Internal,
+                "Analytical Data Store",
                 "This includes all databases and other data stores that can be used as data sources for Spotfire or AMS");
 
             SoftwareSystem spotfireSoftwareSystem = model.AddSoftwareSystem(
-                Location.Internal, 
-                "Spotfire", 
+                Location.Internal,
+                "Spotfire",
                 "TIBCO Spotfire dashboards visualize data (model outputs and other available data)");
 
             SoftwareSystem externalDataSourcesSoftwareSystem = model.AddSoftwareSystem(
-                Location.External, 
-                "External Data Source", 
+                Location.External,
+                "External Data Source",
                 "All other source of data external to SCP from which import data");
 
             SoftwareSystem controlFrameworkSoftwareSystem = model.AddSoftwareSystem(
-                Location.Internal, 
-                "Control Framework", 
+                Location.Internal,
+                "Control Framework",
                 "Collection of configurable SSIS packages running as SQL jobs perfroming data-centric background and reccuring tasks");
 
             SoftwareSystem p2cModelDevelopmentSoftwareSystem = model.AddSoftwareSystem(
-                Location.Internal, 
-                "P2C Model Development", 
+                Location.Internal,
+                "P2C Model Development",
                 "Toolset for development and testing of P2C model");
+
+            #endregion
+
+            #region Containers
+
+            #region AMS Containers
+
+            var amsLightswitchWebApplicationContainer = amsSoftwareSystem.AddContainer("LightSwitch Web Application", 
+                "Main navigation, browse and edit screens, shell for some custom JavaScript controls", 
+                "LightSwitch HTML Client (SPA), Knockout JS");
+
+            var amsAspNetMvcWebApplicationContainer = amsSoftwareSystem.AddContainer("MVC Web Application",
+                "Dashboard, Type system versions, State Validation, Key Inputs, State Merging, Submission Progress",
+                "ASP.NET MVC, Kendo UI, Knockout JS");
+
+            var amsApiApplicationContainer = amsSoftwareSystem.AddContainer("AMS API Application", "AMS back-end", "ASP.NET Web API, Entity Framework, LightSwitch Server");
+
+            var amsDatabaseContainer = amsSoftwareSystem.AddContainer("AMS Database", "Stores project hierarchy, assumptions, type system definition and other data managed by AMS", "MS SQL Server 2016");
+
+            var amsCacheContainer = amsSoftwareSystem.AddContainer("AMS Distributed Cache", "In-memory cache for frequently accessed and hard-to-read data; also used for messaging between Hangfire and AMS", "Redis, Windows Service");
+
+            #endregion
+
+            #region Hangfire Containers
+
+            var hangfireDashboardContainer = hangfireSoftwareSystem.AddContainer("Hangfire Dashboard", "User interface for Hangfire monitoring and management", "Web Application");
+
+            var hangfireServiceContainer = hangfireSoftwareSystem.AddContainer("Windows Service", "Executes background tasks and recurrent jobs", ".Net Framework Windows Application, Shares code base with AMS API Application");
+
+            var hangfireDatabaseContainer = hangfireSoftwareSystem.AddContainer("Hangfire Database", "Stores hangfire jobs, results and other Hangfire data", "MS SQL Server 2016");
+
+            var hangfireMessageQueuesContainer = hangfireSoftwareSystem.AddContainer("Message Queues", "Queues for jobs to be executed by Hangfire", "Microsoft Message Queues");
+            
+            #endregion
 
             #endregion
 
             #region Relationships (what uses what)
 
             scpUser.Uses(amsSoftwareSystem, "Manages model versions, model inputs and creates submissions");
+
+            scpUser.Uses(amsLightswitchWebApplicationContainer, "Manages model versions, model inputs and creates submissions");
+            scpUser.Uses(amsAspNetMvcWebApplicationContainer, "Uses specialized AMS screens");
+
             scpUser.Uses(runsControllerSoftwareSystem, "Monitors and manages submissions");
             scpUser.Uses(spotfireSoftwareSystem, "Uses dashboards to visualize and analyze data");
 
             adminUser.Uses(amsSoftwareSystem, "Manages system settings and other protected data");
+
+            adminUser.Uses(amsLightswitchWebApplicationContainer, "Manages system settings and other protected data");
+
             adminUser.Uses(runsControllerSoftwareSystem, "Manages Runs Controller setting (e.g. which clients are active)");
             adminUser.Uses(hangfireSoftwareSystem, "Manages Hangfire settings; can restart failed jobs etc.");
+            adminUser.Uses(hangfireDashboardContainer, "Manages Hangfire settings; can restart failed jobs etc.");
 
             externalUser.Uses(spotfireSoftwareSystem, "Uses public dashboards or outputs produced by project teams using Spotfire");
 
@@ -124,7 +166,27 @@ namespace structurizr
 
             p2cModelDevelopmentSoftwareSystem.Uses(amsSoftwareSystem, "Exports model versions");
 
+            amsLightswitchWebApplicationContainer.Uses(amsApiApplicationContainer, "Uses", "JSON/HTTP");
+            amsAspNetMvcWebApplicationContainer.Uses(amsApiApplicationContainer, "Uses", "JSON/HTTP");
+
+            amsApiApplicationContainer.Uses(amsDatabaseContainer, "Reads from and writes to", "ADO.Net");
+
+            amsApiApplicationContainer.Uses(amsCacheContainer, "Reads from, writes to and invalidates data in", "StackExchange.Redis client");
+            amsApiApplicationContainer.Uses(amsCacheContainer, "Subscribes to notifications from Hangfire", "Redis Pub/Sub");
+
+            hangfireServiceContainer.Uses(hangfireMessageQueuesContainer, "Processes queued jobs");
+            hangfireServiceContainer.Uses(hangfireDatabaseContainer, "Persists jobs data");
+            hangfireServiceContainer.Uses(amsCacheContainer, "Reads from, writes to and invalidates in", "StackExchange.Redis client");
+            hangfireServiceContainer.Uses(amsCacheContainer, "Publishes notifications for AMS", "Redis Pub/Sub");
+            hangfireServiceContainer.Uses(amsDatabaseContainer, "Reads from and writes to", "ADO.Net");
+
+            hangfireDashboardContainer.Uses(hangfireServiceContainer, "Provides user interface for");
+
+            amsApiApplicationContainer.Uses(hangfireMessageQueuesContainer, "Enqueues and schedules jobs using");
+
             #endregion
+
+
 
             #endregion
 
@@ -146,25 +208,49 @@ namespace structurizr
             #region AMS System Context
 
             SystemContextView amsSystemContextView = views.CreateSystemContextView(
-                amsSoftwareSystem, 
+                amsSoftwareSystem,
                 "AMSSystemContext",
                 "AMS System Context diagram.");
-            // amsSystemContextView.CopyLayoutInformationFrom(enterpriseContextView);
-            // amsSystemContextView.PaperSize = PaperSize.A4_Landscape;
             amsSystemContextView.AddNearestNeighbours(amsSoftwareSystem);
             amsSystemContextView.AddNearestNeighbours(hangfireSoftwareSystem);
-           
+
             #endregion
 
             #region Runs Controller System Context
 
             SystemContextView runsControllerSystemContextView = views.CreateSystemContextView(
-                runsControllerSoftwareSystem, 
+                runsControllerSoftwareSystem,
                 "RunsControllerSystemContext",
                 "RunsController System Context diagram.");
             runsControllerSystemContextView.AddNearestNeighbours(runsControllerSoftwareSystem);
-            // runsControllerSystemContextView.CopyLayoutInformationFrom(enterpriseContextView);
-           
+
+            #endregion
+
+            #region AMS Container Diagram
+
+            var amsContainerView = views.CreateContainerView(amsSoftwareSystem, "AMSContainerDiagram", "AMS container diagram");
+            amsContainerView.AddAllContainers();
+
+            amsContainerView.Add(scpUser);
+            amsContainerView.Add(adminUser);
+
+            amsContainerView.Add(hangfireServiceContainer);           
+            amsContainerView.Add(hangfireMessageQueuesContainer);
+            amsContainerView.Add(hangfireServiceContainer);
+
+            #endregion
+
+            #region Hangfire Container
+
+            var hangfireContainerView = views.CreateContainerView(hangfireSoftwareSystem, "HangfireContainerDiagram", "Hangfire container diagram");
+            hangfireContainerView.AddAllContainers();
+
+            hangfireContainerView.Add(adminUser);
+
+            hangfireContainerView.Add(amsCacheContainer);
+            hangfireContainerView.Add(amsDatabaseContainer);
+            hangfireContainerView.Add(amsApiApplicationContainer);
+
             #endregion
 
             #region Styles
@@ -189,7 +275,8 @@ namespace structurizr
             template.AddContextSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Context.md")));
             template.AddFunctionalOverviewSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "FunctionalOverview.md")));
             template.AddDataSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Data.md")));
-            
+            template.AddSoftwareArchitectureSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
+
             #endregion
 
             #region Upload and generate local DGML
