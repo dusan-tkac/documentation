@@ -201,6 +201,7 @@ The remaining jobs mostly load data to Analytical Data Storage - either from ext
 <p>By having an option to create multiple type system versions we support changes in the Object Type System required by new model versions (when new object type properties are created or existing object type properties are made inactive) and changing definitions of modules.</p>
 <p>Defined type system version modules can be used to filter displayed parts of a state in state summary and state comparison.
 They can be also used to simplify merging of two states.</p>
+<p>[] TODO explain why objects and model version can be linked to type system version</p>
 <h4 id="merging-states-using-modules">Merging States using Modules</h4>
 <h4 id="other-reference-data">Other Reference Data</h4>
 <ul>
@@ -221,6 +222,18 @@ They can be also used to simplify merging of two states.</p>
 <li>State validation</li>
 </ul>
 <h4 id="hangfire-ams-service-functional-overview">Hangfire (AMS Service) Functional Overview</h4>
+<p>Hangfire is preferred software system for implementation of background tasks and recurring jobs.</p>
+<p>Recurring jobs currently configured in Hangfire:</p>
+<ul>
+<li>Synchronisation of submission status from Runs Controller to AMS (submission-progress)</li>
+<li>Deletion of old model outputs from database (schedule-model-outputs-deletion)</li>
+<li>Deletion of old empty pre-processed model output folders (schedule-delete-old-preprocessed-folders)</li>
+<li>Registration of model outputs (schedule-register-model-outputs)</li>
+<li>Checking of running submissions and creation of post-processing submissions (schedule-check-preprocessed-submissions)</li>
+<li>Post-load processing of finished submissions (schedule-post-load-processing)</li>
+</ul>
+<!--![Hangfire Recurring Jobs](Screenshots/HangfireRecurringJobs.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/HangfireRecurringJobs.png" alt="Hangfire Recurring Jobs" /></p>
 <h3 id="runs-controller-functional-overview">Runs Controller Functional Overview</h3>
 <p>This is functional overview</p>
 

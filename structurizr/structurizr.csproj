@@ -5,9 +5,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Documentation\Context.md" />
+    <None Remove="Documentation\Data.md" />
     <None Remove="Documentation\FunctionalOverview.md" />
     <None Remove="Documentation\Screenshots\AssetMap.png" />
     <None Remove="Documentation\Screenshots\CaseMatrix.png" />
+    <None Remove="Documentation\Screenshots\HangfireJobDetails.png" />
+    <None Remove="Documentation\Screenshots\HangfireRecurringJobs.png" />
     <None Remove="Documentation\Screenshots\ImportActualDataToChangeset.png" />
     <None Remove="Documentation\Screenshots\KnowledgeItem.png" />
     <None Remove="Documentation\Screenshots\ModelVersionDetails.png" />
@@ -25,14 +28,27 @@
     <None Remove="Documentation\Screenshots\CaseSetupTool.png" />
     <None Remove="Documentation\Screenshots\StockyardLayoutEditor.png" />
     <None Remove="Documentation\Screenshots\ObjectTypeViewer.png" />
+    <None Remove="Documentation\DataModels\CaseLabels.png" />
+    <None Remove="Documentation\DataModels\ObjectsAndValues.png" />
+    <None Remove="Documentation\DataModels\ObjectTypeSystem.png" />
+    <None Remove="Documentation\DataModels\ProjectHierarchy.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Documentation\Screenshots\HangfireJobDetails.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\HangfireRecurringJobs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\SubmissionProgressSearch.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\Context.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Data.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\FunctionalOverview.md">
@@ -90,6 +106,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\ObjectTypeViewer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\DataModels\CaseLabels.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\DataModels\ObjectsAndValues.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\DataModels\ObjectTypeSystem.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\DataModels\ProjectHierarchy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

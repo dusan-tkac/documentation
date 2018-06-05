@@ -311,6 +311,21 @@ They can be also used to simplify merging of two states.
 
 #### Hangfire (AMS Service) Functional Overview
 
+Hangfire is preferred software system for implementation of background tasks and recurring jobs.
+
+Recurring jobs currently configured in Hangfire:
+
+* Synchronization of submission status from Runs Controller to AMS (submission-progress)
+* Deletion of old model outputs from database (schedule-model-outputs-deletion)
+* Deletion of old empty pre-processed model output folders (schedule-delete-old-preprocessed-folders)
+* Registration of model outputs (schedule-register-model-outputs)
+* Checking of running submissions and creation of post-processing submissions (schedule-check-preprocessed-submissions)
+* Post-load processing of finished submissions (schedule-post-load-processing)
+
+<!--![Hangfire Recurring Jobs](Screenshots/HangfireRecurringJobs.png) -->
+![Hangfire Recurring Jobs](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/HangfireRecurringJobs.png)
+
+
 ### Runs Controller Functional Overview
 
 This is functional overview
