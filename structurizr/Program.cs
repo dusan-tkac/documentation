@@ -119,7 +119,113 @@ namespace structurizr
             var hangfireDatabaseContainer = hangfireSoftwareSystem.AddContainer("Hangfire Database", "Stores hangfire jobs, results and other Hangfire data", "MS SQL Server 2016");
 
             var hangfireMessageQueuesContainer = hangfireSoftwareSystem.AddContainer("Message Queues", "Queues for jobs to be executed by Hangfire", "Microsoft Message Queues");
-            
+
+            #endregion
+
+            #region Control Framework Containers
+
+            var controlFrameworkDatabaseContainer = controlFrameworkSoftwareSystem.AddContainer("ControlFrameworkDB", "Control Framework database", "MS SQL Server 2016 database");
+            //var controlFrameworkJobs = 
+
+            #endregion
+
+            #region Runs Controller Containers
+
+            var rcDistributorContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Distributor", 
+                "Maintains package queue; distributes packages to clients; implements APIs for submission creation and portal", 
+                ".Net, C#, Windows Service");
+
+            var rcClientContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Client", "Executes packages", ".Net, C#, Windows Service");
+
+            var rcDatabaseContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Database", "Stores Runs Controller data", "SQL Server 2016 database");
+
+            var rcReportingAPIServiceContainer = runsControllerSoftwareSystem.AddContainer("RunsController Reporting API Service", "Provides APIs for reporting on Runs Controller data", "ASP.NET Core, Windows Service");
+
+            var rcCommandLineToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Command Line Tool", 
+                "Command Line interface to Runs Controller Distributor; allows for creation of Arena packages", 
+                ".Net, C#, console application");
+
+            var rcSubmissionToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Submission Tool", 
+                "The tools for creation of Arena submissions", 
+                "C# Windows Forms application, ClickOnce deployment");
+
+            var rcNotificationClientContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Notification Client", 
+                "Monitors user's submissions and displays notification when submission is finished", 
+                "C# Windows Forms application");
+
+            var rcPortalContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Portal", "Runs Controller user interface", "ASP.NET MVC web application");
+
+            #endregion
+
+            #region Analytical Data Store Containers
+
+            var adsDatabaseContainer = analyticalDataStoreSoftwareSystem.AddContainer("AnalyticalDataStore", "ADS database", "MS SQL Server 2016 database");
+            var actualsTimeSeriesDatabaseContainer = analyticalDataStoreSoftwareSystem.AddContainer("Actuals_TimeSeries", "Actuals Time Series database", "MS SQL Server 2016 database");
+            var projectDatabaseContainer = analyticalDataStoreSoftwareSystem.AddContainer("Project", "Project database", "MS SQL Server 2016 database");
+            var sckbDatabaseContainer = analyticalDataStoreSoftwareSystem.AddContainer("SCKBDatabase", "SCKB database", "MS SQL Server 2016 database");
+            var sckbReportingDatabaseContainer = analyticalDataStoreSoftwareSystem.AddContainer("SCKBReportingDB", "SCKB Reporting database", "MS SQL Server 2016 database");
+
+            #endregion
+
+            #region Model Outputs Storage Containers
+
+            var modelOutputsFileSharesContainer = modelOutputsStorageSoftwareSystem.AddContainer("Model Outputs File Shares", "Store model output files and post-processed data", "File Share");
+            var modelOutputsKpiDatabaseContainer = modelOutputsStorageSoftwareSystem.AddContainer("ModelOutputs_KPI", "Model Outputs KPI database", "MS SQL Server 2016 database");
+            var modelOutputsTimeSeriesDatabaseContainer = modelOutputsStorageSoftwareSystem.AddContainer("ModelOutputs_TimeSeries", "Model Outputs Time Series database", "MS SQL Server 2016 database");
+            var modelOutputsProcessDatabaseContainer = modelOutputsStorageSoftwareSystem.AddContainer("ModelOutputsProcess", "Model Outputs Process database", "MS SQL Server 2016 database");
+
+            #endregion
+
+            #region Deployment Nodes
+
+            var amsWebServer = model.AddDeploymentNode("IORPER-WEB01", "AMS Web Server", "Windows Server 2012 R2");
+
+            amsWebServer.Add(hangfireServiceContainer);
+            amsWebServer.Add(hangfireMessageQueuesContainer);
+            amsWebServer.Add(amsCacheContainer);
+
+            var amsIis = amsWebServer.AddDeploymentNode("IIS", "Internet Information Services", "IIS 8.5");
+            amsIis.Add(amsApiApplicationContainer);
+            amsIis.Add(amsLightswitchWebApplicationContainer);
+            amsIis.Add(amsAspNetMvcWebApplicationContainer);
+            amsIis.Add(hangfireDashboardContainer);
+
+            var clusterNode1 = model.AddDeploymentNode("IORPER-C02SQ01", "Node 1 of the failover cluster", "Windows Server 2012 R2");
+            var node1databaseServer = clusterNode1.AddDeploymentNode("SQ2014SCAP01", "Database Server for Analytical Data Store", "SQL Server 2016");
+            node1databaseServer.Add(adsDatabaseContainer);
+            node1databaseServer.Add(controlFrameworkDatabaseContainer);
+            node1databaseServer.Add(actualsTimeSeriesDatabaseContainer);
+            node1databaseServer.Add(modelOutputsKpiDatabaseContainer);
+            node1databaseServer.Add(modelOutputsTimeSeriesDatabaseContainer);
+            node1databaseServer.Add(modelOutputsProcessDatabaseContainer);
+            node1databaseServer.Add(projectDatabaseContainer);
+            node1databaseServer.Add(sckbDatabaseContainer);
+            node1databaseServer.Add(sckbReportingDatabaseContainer);
+
+            var clusterNode2 = model.AddDeploymentNode("IORPER-C02SQ02", "Node 2 of the failover cluster", "Windows Server 2012 R2");
+
+            var node2databaseServer = clusterNode2.AddDeploymentNode("SQ2014SCAP02", "Database Server for operational databases", "SQL Server 2016");
+
+            var amsDatabase = node2databaseServer.AddDeploymentNode("AMS", "AMS database - the dbo schema contains AMS tables and vies, hangfire schema contains Hangfire tables", "SQL Server Database");
+            amsDatabase.Add(amsDatabaseContainer);
+            amsDatabase.Add(hangfireDatabaseContainer);
+
+            var runsControllerDistributorServer = model.AddDeploymentNode("IOPL-S0044", "Runs Controller Distributor Server (alias UnityServer)", "Windows Server 2008 R2");
+            runsControllerDistributorServer.Add(rcDistributorContainer);
+
+            node2databaseServer.Add(rcDatabaseContainer);
+
+            var gen8processingClients = model.AddDeploymentNode("Gen8 Runs Controller clients servers (Arena and AnyLogic)", "Gen8 Runs Controller client servers (16 processing slots)", "Windows Server 2012 R2", 31);
+            var gen8postProcessingClients = model.AddDeploymentNode("Gen8 Runs Controller clients server (post-processing)", "Gen8 Runs Controller client servers (1 processing slot)", "Windows Server 2012 R2", 1);
+
+            var gen9processingClients = model.AddDeploymentNode("Gen9 Runs Controller clients servers (Arena and AnyLogic)", "Gen8 Runs Controller client servers (24 processing slots)", "Windows Server 2012 R2", 24);
+            var gen9postProcessingClients = model.AddDeploymentNode("Gen9 Runs Controller clients server (post-processing)", "Gen8 Runs Controller client servers (2 processing slot)", "Windows Server 2012 R2", 2);
+
+            gen8processingClients.Add(rcClientContainer);
+            gen8postProcessingClients.Add(rcClientContainer);
+            gen9processingClients.Add(rcClientContainer);
+            gen9postProcessingClients.Add(rcClientContainer);
+
             #endregion
 
             #endregion
@@ -179,10 +285,42 @@ namespace structurizr
             hangfireServiceContainer.Uses(amsCacheContainer, "Reads from, writes to and invalidates in", "StackExchange.Redis client");
             hangfireServiceContainer.Uses(amsCacheContainer, "Publishes notifications for AMS", "Redis Pub/Sub");
             hangfireServiceContainer.Uses(amsDatabaseContainer, "Reads from and writes to", "ADO.Net");
+            hangfireServiceContainer.Uses(modelOutputsFileSharesContainer, "Registers created model output files");
+            hangfireServiceContainer.Uses(modelOutputsFileSharesContainer, "Removes old model output files");
+            hangfireServiceContainer.Uses(modelOutputsKpiDatabaseContainer, "Removes old model outputs");
+            hangfireServiceContainer.Uses(modelOutputsTimeSeriesDatabaseContainer, "Removes old model outputs");
 
             hangfireDashboardContainer.Uses(hangfireServiceContainer, "Provides user interface for");
 
             amsApiApplicationContainer.Uses(hangfireMessageQueuesContainer, "Enqueues and schedules jobs using");
+
+            var failoverRelationship = clusterNode2.Uses(clusterNode1, "Failover to", "Windows Server Failover Cluster");
+
+            rcDistributorContainer.Uses(rcDatabaseContainer, "Reads from and writes to", "ADO.Net");
+            rcClientContainer.Uses(rcDistributorContainer, "Requests packages to execute; send package reports and changes in package status", "WCF, http");
+            rcPortalContainer.Uses(rcDistributorContainer, "Reads data to display from and sends requests to manage data to", "WCF, http");
+            scpUser.Uses(rcPortalContainer, "Manages submissions and packages");
+
+            hangfireServiceContainer.Uses(rcDistributorContainer, "Creates AnyLogic packages and submissions, creates post-processing packages and submissions", "WCF, http");
+            hangfireServiceContainer.Uses(rcReportingAPIServiceContainer, "Reads submission details to be cached in AMS and displayed in AMS", "http");
+
+            spotfireSoftwareSystem.Uses(rcReportingAPIServiceContainer, "Reads submission details to be displayed on the environment performance dashboard", "http");
+
+            amsApiApplicationContainer.Uses(rcDistributorContainer, "Updates Customer and Project details", "WCF, http");
+
+            rcCommandLineToolContainer.Uses(rcDistributorContainer, "Creates Arena packages and submissions, updates customer and project", "WCF, http");
+
+            rcSubmissionToolContainer.Uses(rcCommandLineToolContainer, "Uses it to creates Arena packages and submissions an to update customer and project");
+
+            rcNotificationClientContainer.Uses(rcDistributorContainer, "Subscribes to user's submission changes", "WCF, http");
+
+            rcReportingAPIServiceContainer.Uses(rcDatabaseContainer, "Reads persisted submission data", "ADO.Net");
+            rcReportingAPIServiceContainer.Uses(rcDistributorContainer, "Reads queue details", "WCF, http");
+
+            scpUser.Uses(rcNotificationClientContainer, "Gets notified when his submission is finished");
+            scpUser.Uses(rcSubmissionToolContainer, "Creates Arena submissions using");
+
+            rcClientContainer.Uses(modelOutputsFileSharesContainer, "Generates output files in");
 
             #endregion
 
@@ -240,6 +378,19 @@ namespace structurizr
 
             #endregion
 
+            #region Runs Controller Container Diagram
+
+            var runsControllerContainerView = views.CreateContainerView(runsControllerSoftwareSystem, "RCContainerDiagram", "Runs Controller container diagram");
+            runsControllerContainerView.AddAllContainers();
+            runsControllerContainerView.Add(scpUser);
+
+            runsControllerContainerView.Add(hangfireServiceContainer);
+            runsControllerContainerView.Add(amsApiApplicationContainer);
+            runsControllerContainerView.Add(spotfireSoftwareSystem);
+            runsControllerContainerView.Add(modelOutputsFileSharesContainer);
+
+            #endregion
+
             #region Hangfire Container
 
             var hangfireContainerView = views.CreateContainerView(hangfireSoftwareSystem, "HangfireContainerDiagram", "Hangfire container diagram");
@@ -250,6 +401,33 @@ namespace structurizr
             hangfireContainerView.Add(amsCacheContainer);
             hangfireContainerView.Add(amsDatabaseContainer);
             hangfireContainerView.Add(amsApiApplicationContainer);
+
+            #endregion
+
+            #region AMS Deployment
+
+            var amsDeploymentView = views.CreateDeploymentView("AMSDeploymentDiagram", "AMS Deployment Diagram");
+
+            amsDeploymentView.Add(amsWebServer);
+            amsDeploymentView.Add(clusterNode2);
+            amsDeploymentView.Add(clusterNode1);
+            amsDeploymentView.Add(failoverRelationship);
+
+            #endregion
+
+            #region Runs Controller Deployment
+
+            var runsControllerDeploymentView = views.CreateDeploymentView("RunsControllerDeploymentDiagram", "Runs Controller Deployment Diagram");
+
+            runsControllerDeploymentView.Add(runsControllerDistributorServer);
+            runsControllerDeploymentView.Add(gen8processingClients);
+            runsControllerDeploymentView.Add(gen8postProcessingClients);
+            runsControllerDeploymentView.Add(gen9processingClients);
+            runsControllerDeploymentView.Add(gen9postProcessingClients);
+            runsControllerDeploymentView.Add(clusterNode2);
+            runsControllerDeploymentView.Add(clusterNode2);
+            runsControllerDeploymentView.Add(clusterNode1);
+            runsControllerDeploymentView.Add(failoverRelationship);
 
             #endregion
 
@@ -276,6 +454,7 @@ namespace structurizr
             template.AddFunctionalOverviewSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "FunctionalOverview.md")));
             template.AddDataSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Data.md")));
             template.AddSoftwareArchitectureSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
+            template.AddDeploymentSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Deployment.md")));
 
             #endregion
 
