@@ -266,7 +266,7 @@ Details of the submission progress show a list of submission packages with links
 
 It also shows which package outputs have been registered; if post-processing package has been created and what is it's status.
 
-It also shows which pot-processed outputs where loaded to database (or Model Outputs Storage).
+It also shows which pots-processed outputs where loaded to database (or Model Outputs Storage).
 
 <!--![Submission Progress - Search](Screenshots/SubmissionProgressDetails.png) -->
 ![Submission Progress - Search](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionProgressDetails.png)
@@ -299,15 +299,17 @@ They can be also used to simplify merging of two states.
 * Customers
 * Project Types
 
-#### Navigation
+#### Dashboard
 
-* Dashboard
-  * overview of queued, running and recently finished submissions with links to Runs Controller web site for current user and all users
-  * navigation to main browse screens (projects, scenarios, cases and states)
-  * navigation to bulk import screens (states and submissions)
-  * navigation to user's favorite entities
-* Browse screens for main entities (Projects, Scenarios, Cases, States)
-* State validation
+AMS Dashboard shows
+
+* overview of queued, running and recently finished submissions with links to Runs Controller web site for current user and all users
+* navigation to main browse screens (projects, scenarios, cases and states)
+* navigation to bulk import screens (states and submissions)
+* navigation to user's favorite entities
+
+<!-- ![AMS Dashboard](Screenshots/AMSDashboard.png) -->
+![AMS Dashboard](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/AMSDashboard.png)
 
 #### Hangfire (AMS Service) Functional Overview
 
@@ -325,7 +327,47 @@ Recurring jobs currently configured in Hangfire:
 <!--![Hangfire Recurring Jobs](Screenshots/HangfireRecurringJobs.png) -->
 ![Hangfire Recurring Jobs](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/HangfireRecurringJobs.png)
 
+Background jobs enqueued or scheduled in Hangfire on demand by AMS:
+
+* Asset Map (and State Validation) values computation for locked and new states
+* Creation of change sets from actual data
+* Creation of submissions in Runs Controller
+* Post-load processing of submissions (triggered by user)
+* Creation of post-processing submissions in Runs Controller
+* Import of states from another environment
+* Export of states to another environment
 
 ### Runs Controller Functional Overview
 
-This is functional overview
+Runs Controller was originally meant to provide tools to manage projects, customers, submissions and packages without AMS.
+
+The current state is that project and customer management was moved to AMS and this data are synchronized from AMS to Runs Controller on demand.
+Project and customer data editing was disabled in Runs Controller Portal.
+
+AMS is the only way users can currently create AnyLogic (P2C) submissions in Runs Controller.
+
+Arena submissions are create using Runs Controller Submission Tool.
+
+<!-- ![Runs Controller Submission Tool](Screenshots/SubmissionTool.png) -->
+![Runs Controller Submission Tool](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SubmissionTool.png)
+
+Post-processing submissions are created automatically by Hangfire service for successful AnyLogic submissions that require post-processing.
+
+Users can still monitor and manage their submissions and packages in Runs Controller.
+
+<!-- ![Runs Controller Submissions](Screenshots/RunsControllerSubmissions.png) -->
+![Runs Controller Submissions](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/RunsControllerSubmissions.png)
+
+Users can cancel and re-start packages and they can change package priority. Priority of the package is one the criteria that determine position of the package in the processing queue.
+
+All these operations can be also done in bulk - for multiple packages at the same time.
+
+Submission details also show an estimated time required to finish execution of the submission and basic submission statistics.
+
+<!-- ![Runs Controller Submission Details](Screenshots/RunsControllerSubmissionDetails.png) -->
+![Runs Controller Submission Details](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/RunsControllerSubmissionDetails.png)
+
+Package details also show estimated time to finish. For running or finished packages user can also see execution reports.
+
+<!-- ![Runs Controller Package Details](Screenshots/RunsControllerPackageDetails.png) -->
+![Runs Controller Package Details](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/RunsControllerPackageDetails.png)
