@@ -13,7 +13,8 @@
 <p>Note: The &quot;Software System&quot; and other terms used in this document are terms adopted from the <a href="https://c4model.com/">C4 model</a> - a model for describing software architecture.*</p>
 </blockquote>
 <p>Following diagram provides an overview of majority of related software systems used by SCP:</p>
-<p><img src="embed:EnterpriseContext" alt="System Landscape diagram" /></p>
+<!--![System Landscape diagram](embed:EnterpriseContext)-->
+<p><img src="https://structurizr.com/share/39062/images/EnterpriseContext.png" alt="System Landscape diagram" /></p>
 <p>The SCP &quot;is in the business&quot; of answering question (most often) related to supply chain by creating and running models and analyzing and interpreting results of these model runs.</p>
 <p>Software systems displayed in the diagram above support users in these tasks.</p>
 <p><strong>TIBCO Spotfire</strong> is the main tool used by SCP to visualize and analyze available data (e.g. results of model runs).</p>
@@ -28,7 +29,8 @@
 <p>It is worth noting that some <strong>users outside of SCP</strong> have (or will have) an access to some dashboards in SCP Spotfire and that large part of data managed by <strong>Analytical Data Store</strong> are imported from <strong>systems external to SCP</strong>.</p>
 <p>The rest of this document describes AMS, Hangfire and Runs Controller in greater details.</p>
 <h3 id="ams-and-hangfire-system-context">AMS and Hangfire System Context</h3>
-<p><img src="embed:AMSSystemContext" alt="AMS system context diagram" /></p>
+<!--![AMS system context diagram](embed:AMSSystemContext)-->
+<p><img src="https://structurizr.com/share/39062/images/AMSSystemContext.png" alt="AMS system context diagram" /></p>
 <p>AMS and Hangfire could really be considered as a single software system. Hangfire deployment unit (windows service) is even called &quot;AMS Service&quot;.</p>
 <p>Indeed, many of background tasks are just &quot;offloaded&quot; by AMS to Hangfire.
 However, there are also some tasks (e.g. model outputs registration and retention policy) that are really not that much related to AMS - hence the separation to two software systems.</p>
@@ -44,7 +46,8 @@ User create their &quot;submissions&quot; (model runs) in AMS and AMS displays b
 The service implementation shares its code base with AMS; AMS web application also hosts a user interface for Hangfire administration. Permanent job storage for Hangfire is a part of the AMS database (separate database schema).</p>
 <p>Hangfire also sends notifications to AMS about finished background jobs which AMS created. AMS then displays notification to a user that initiated the task.</p>
 <h3 id="runs-controller-system-context">Runs Controller System Context</h3>
-<p><img src="embed:RunsControllerSystemContext" alt="Runs Controller system context diagram" /></p>
+<!--![Runs Controller system context diagram](embed:RunsControllerSystemContext)-->
+<p><img src="https://structurizr.com/share/39062/images/RunsControllerSystemContext.png" alt="Runs Controller system context diagram" /></p>
 <p>Runs Controller's main function is to execute &quot;submissions&quot;.</p>
 <p>In general, a submission consist of number of packages which share the same executable program and most of their inputs. Packages within the submission typically only differ in a &quot;seed number&quot; - a number which is used to seed random number generators within the executable.</p>
 <p>Runs Controller currently supports an execution of following types of submissions:</p>
@@ -59,7 +62,7 @@ When clients' capacity is not sufficient to execute or created packages distribu
 <p>Runs Controller also provides user interface which allow users to monitor and control their submissions and/or individual packages. Users can cancel their submissions and packages and change their priority.
 Package priority controls its place in the queue.
 Users can check standard output of their running packages and their progress.</p>
-<p>Apart of standard output which is displayed in Runs Controller user interface, P2C models also produce output files which are copied to Model Outputs Storage.</p>
+<p>Apart from standard output, which is stored as package reports and displayed in Runs Controller user interface, P2C models also produce output files which are copied to Model Outputs Storage.</p>
 
 
 </body>

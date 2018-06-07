@@ -8,7 +8,10 @@ Please see the detailed deployment and configuration documentation in SharePoint
 
 ### AMS and Hangfire Deployment Diagram
 
-![AMS and Hangfire Deployment Diagram](embed:AMSDeploymentDiagram)
+<!--![AMS and Hangfire Deployment Diagram](embed:AMSDeploymentDiagram)-->
+![AMS and Hangfire Deployment Diagram](https://structurizr.com/share/39062/images/AMSDeploymentDiagram.png)
 
 ### Runs Controller Distributor and Clients Deployment Diagram
-![Runs Controller Deployment Diagram](embed:RunsControllerDeploymentDiagram)
+
+<!--![Runs Controller Deployment Diagram](embed:RunsControllerDeploymentDiagram)-->
+![Runs Controller Deployment Diagram](https://structurizr.com/share/39062/images/RunsControllerDeploymentDiagram.png)

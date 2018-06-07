@@ -9,7 +9,8 @@ This document describes some of the software systems used by IPRO Supply Chain P
 
 Following diagram provides an overview of majority of related software systems used by SCP:
 
-![System Landscape diagram](embed:EnterpriseContext)
+<!--![System Landscape diagram](embed:EnterpriseContext)-->
+![System Landscape diagram](https://structurizr.com/share/39062/images/EnterpriseContext.png)
 
 The SCP "is in the business" of answering question (most often) related to supply chain by creating and running models and analyzing and interpreting results of these model runs.
 
@@ -36,7 +37,8 @@ The rest of this document describes AMS, Hangfire and Runs Controller in greater
 
 ### AMS and Hangfire System Context
 
-![AMS system context diagram](embed:AMSSystemContext)
+<!--![AMS system context diagram](embed:AMSSystemContext)-->
+![AMS system context diagram](https://structurizr.com/share/39062/images/AMSSystemContext.png)
 
 AMS and Hangfire could really be considered as a single software system. Hangfire deployment unit (windows service) is even called "AMS Service".
 
@@ -63,7 +65,8 @@ Hangfire also sends notifications to AMS about finished background jobs which AM
 
 ### Runs Controller System Context
 
-![Runs Controller system context diagram](embed:RunsControllerSystemContext)
+<!--![Runs Controller system context diagram](embed:RunsControllerSystemContext)-->
+![Runs Controller system context diagram](https://structurizr.com/share/39062/images/RunsControllerSystemContext.png)
 
 Runs Controller's main function is to execute "submissions".
 
@@ -83,4 +86,4 @@ Runs Controller also provides user interface which allow users to monitor and co
 Package priority controls its place in the queue.
 Users can check standard output of their running packages and their progress.
 
-Apart of standard output which is displayed in Runs Controller user interface, P2C models also produce output files which are copied to Model Outputs Storage.
+Apart from standard output, which is stored as package reports and displayed in Runs Controller user interface, P2C models also produce output files which are copied to Model Outputs Storage.

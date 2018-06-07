@@ -6,11 +6,12 @@
 <body>
 
     <h3 id="ams-architecture">AMS Architecture</h3>
-<p><img src="embed:AMSContainerDiagram" alt="AMS Container Diagram" /></p>
+<!--![AMS Container Diagram](embed:AMSContainerDiagram)-->
+<p><img src="https://structurizr.com/share/39062/images/AMSContainerDiagram.png" alt="AMS Container Diagram" /></p>
 <p>AMS was initially created as a LightSwitch application with HTML client.</p>
 <p>Later, parts of the user interface were implemented as ASP.NET MVC application.
 LightSwitch HTML client screens were also customized by implementing custom controls - most of them using KnockoutJS and jQuery.</p>
-<p>Apart of standard browsing and editing functionality for basic entities provided by LighSwitch, all other functionality is implemented in custom API controllers (and services and repositories).</p>
+<p>Apart from standard browsing and editing functionality for basic entities provided by LighSwitch, all other functionality is implemented in custom API controllers (and services and repositories).</p>
 <p>AMS stores data in Microsoft SQL Server database.</p>
 <p>Data access for the LightSwitch part is done using LightSwitch data sources; most of the implemented repositories use Entity Framework 6 ORM.
 There are also some stored procedures used where necessary.</p>
@@ -24,7 +25,8 @@ This cache is shared with Hangfire service.</p>
 <p>AMS enqueues background tasks to be executed by Hangfire using MSMQ (indirectly - this mechanism is hidden by Hangfire standard API).</p>
 <p>Redis is also used for messaging from Hangfire to AMS. AMS subscribes to notifications sent by Hangfire using Redis Pub/Sub.</p>
 <h3 id="hangfire-architecture">Hangfire Architecture</h3>
-<p><img src="embed:HangfireContainerDiagram" alt="Hangfire Container Diagram" /></p>
+<!--![Hangfire Container Diagram](embed:HangfireContainerDiagram)-->
+<p><img src="https://structurizr.com/share/39062/images/HangfireContainerDiagram.png" alt="Hangfire Container Diagram" /></p>
 <p>Hangfire is framework used for execution of background and recurrent jobs.</p>
 <p>The dashboard - user interface for job management - is hosted by AMS web site.
 The processing part is deployed as a windows service and shares its code base with AMS - it can use all services and repositories that exist in AMS.
@@ -33,7 +35,8 @@ It means that this processing part uses AMS database and cache in the same way a
 <p>Scheduled jobs are received through MSMQ.</p>
 <p>Job definitions and results are saved in the Hangfire database (&quot;Hangfire&quot; schema within AMS database).</p>
 <h3 id="runs-controller-architecture">Runs Controller Architecture</h3>
-<p><img src="embed:RCContainerDiagram" alt="Runs Controller Container Diagram" /></p>
+<!--![Runs Controller Container Diagram](embed:RCContainerDiagram)-->
+<p><img src="https://structurizr.com/share/39062/images/RCContainerDiagram.png" alt="Runs Controller Container Diagram" /></p>
 <p>Runs controller distributor runs as a windows service.
 It is the only component that can save data to Runs Controller database.</p>
 <p>Distributor implement a set of APIs (WCF) that</p>

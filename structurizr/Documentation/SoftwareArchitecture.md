@@ -1,13 +1,14 @@
 ### AMS Architecture
 
-![AMS Container Diagram](embed:AMSContainerDiagram)
+<!--![AMS Container Diagram](embed:AMSContainerDiagram)-->
+![AMS Container Diagram](https://structurizr.com/share/39062/images/AMSContainerDiagram.png)
 
 AMS was initially created as a LightSwitch application with HTML client.
 
 Later, parts of the user interface were implemented as ASP.NET MVC application.
 LightSwitch HTML client screens were also customized by implementing custom controls - most of them using KnockoutJS and jQuery.
 
-Apart of standard browsing and editing functionality for basic entities provided by LighSwitch, all other functionality is implemented in custom API controllers (and services and repositories). 
+Apart from standard browsing and editing functionality for basic entities provided by LighSwitch, all other functionality is implemented in custom API controllers (and services and repositories). 
 
 AMS stores data in Microsoft SQL Server database.
 
@@ -33,7 +34,8 @@ Redis is also used for messaging from Hangfire to AMS. AMS subscribes to notific
 
 ### Hangfire Architecture
 
-![Hangfire Container Diagram](embed:HangfireContainerDiagram)
+<!--![Hangfire Container Diagram](embed:HangfireContainerDiagram)-->
+![Hangfire Container Diagram](https://structurizr.com/share/39062/images/HangfireContainerDiagram.png)
 
 Hangfire is framework used for execution of background and recurrent jobs.
 
@@ -49,7 +51,8 @@ Job definitions and results are saved in the Hangfire database ("Hangfire" schem
 
 ### Runs Controller Architecture
 
-![Runs Controller Container Diagram](embed:RCContainerDiagram)
+<!--![Runs Controller Container Diagram](embed:RCContainerDiagram)-->
+![Runs Controller Container Diagram](https://structurizr.com/share/39062/images/RCContainerDiagram.png)
 
 Runs controller distributor runs as a windows service.
 It is the only component that can save data to Runs Controller database.
