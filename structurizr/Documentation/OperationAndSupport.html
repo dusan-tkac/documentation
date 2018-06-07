@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoring</title>
+</head>
+<body>
+
+    <h3 id="monitoring">Monitoring</h3>
+<h4 id="errors">Errors</h4>
+<p>Most AMS and Runs Controller components create log entries using <a href="https://serilog.net/">Serilog</a> and send them to Seq(<a href="https://getseq.net/">https://getseq.net/</a>) instance.</p>
+<p>Our Seq instance URL is <a href="http://iorper-webd01:5341/#/dash">http://iorper-webd01:5341/#/dash</a>.</p>
+<p>The Seq dashboard provides and overview of logged errors and other important events.</p>
+<!--![Seq Dashboard](Screenshots/SeqDashboard.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SeqDashboard.png" alt="Seq Dashboard" /></p>
+<p>By clicking on a dashboard chart you can navigate to the events screen and see filtered events.</p>
+<!--![Seq Events](Screenshots/SeqEvents.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/SeqEvents.png" alt="Seq Events" /></p>
+<p>Errors monitoring should be done daily.</p>
+<p>Seq also stores other event types, not just errors. These logged events can be invaluable when investigating some issues.</p>
+<h4 id="runs-controller-status">Runs Controller status</h4>
+<p>Another daily task is to check availability of Runs Controller clients.</p>
+<p>Runs Controller Portal Nodes screens lists active, inactive and decommissioned nodes (clients).
+If client becomes inactive it usually means there are technical issues on the machine that need to fixed.</p>
+<p>Number of threads displayed on the dial in the top-right corner is another useful indicator.</p>
+<p>This screen also displays distributor status.</p>
+<!--![Runs Controller Nodes](Screenshots/RunsControllerNodes.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/RunsControllerNodes.png" alt="Runs Controller Nodes" /></p>
+<p>Runs controller distributor and clients still use event log for most of their logging.
+In some cases it may help to have a look at logged events when investigating Runs Controller issues.</p>
+<h4 id="hangfire-queue">Hangfire Queue</h4>
+<p>Hangfire also requires regular monitor.</p>
+<p>Occasionally, most often in Test environment, job gets stuck and blocks processing queue.
+The stuck job needs to be deleted; sometimes, if the queue has grown too long; the enqueued jobs need to be deleted too.</p>
+<p>The Hangfire Windows Service may need a restart.</p>
+<p>Recently deleted jobs can then be re-queued.</p>
+<!--![Hangfire - deleted jobs](Screenshots/HangfireDeletedJobs.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/HangfireDeletedJobs.png" alt="Hangfire - deleted jobs" /></p>
+<h4 id="database-sizes">Database sizes</h4>
+<p>All database sizes and their growth should be regularly checked to avoid running out of space.</p>
+<h4 id="configuration">Configuration</h4>
+<p>Following documents list and explain configuration of AMS and Runs Controller main components (BHP Billiton account required to sign in to SharePoint):</p>
+<ul>
+<li><a href="https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Eb5PqpC0fiBLqz7sMwdUo64BczSPCoPSKmtkdL9N5aQJQw">AMS Deployment and Configuration</a></li>
+<li><a href="https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/EW8RUIX5IOdNgpNXym7bm8MB492FgA4Dgd6et90vh1UNxQ">Runs Controller Deployment and Configuration</a></li>
+<li><a href="https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Ebuf3OrtIcNLnrgIXcBhBE0BtM3_znLzj8DLHQ_dCrLmrw">Runs Controller Reporting API Deployment and Confuguration</a></li>
+</ul>
+
+
+</body>
+</html>

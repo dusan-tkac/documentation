@@ -55,3 +55,11 @@ Recently deleted jobs can then be re-queued.
 #### Database sizes
 
 All database sizes and their growth should be regularly checked to avoid running out of space.
+
+#### Configuration
+
+Following documents list and explain configuration of AMS and Runs Controller main components (BHP Billiton account required to sign in to SharePoint):
+
+* [AMS Deployment and Configuration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Eb5PqpC0fiBLqz7sMwdUo64BczSPCoPSKmtkdL9N5aQJQw)
+* [Runs Controller Deployment and Configuration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/EW8RUIX5IOdNgpNXym7bm8MB492FgA4Dgd6et90vh1UNxQ)
+* [Runs Controller Reporting API Deployment and Confuguration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Ebuf3OrtIcNLnrgIXcBhBE0BtM3_znLzj8DLHQ_dCrLmrw)

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Hangfire service and AMS Backend Development</title>
+</head>
+<body>
+
+    <h3 id="hangfire-service-and-ams-backend-development">Hangfire service and AMS Backend Development</h3>
+<p>Hangfire service (AMS service) and AMS are kept within single Visual Studio Solution. They use same services and repositories.</p>
+<p>AMS still uses LightSwitch which is not being actively developed anymore. Do not create anymore functionality dependent on LightSwitch.</p>
+<h4 id="data-access">Data Access</h4>
+<p>Database structure is defined, maintained and deployed using Database project in Visual Studio.</p>
+<p>We use Entity Framework 6 Code First to access the database from non-LightSwitch parts of AMS.</p>
+<p>We manage Entity Framework DBContext instances using an approach (and library) created by Mehdi El Gueddari: <a href="http://mehdi.me/ambient-dbcontext-in-ef6/">Managing DbContext the right way with Entity Framework 6: an in-depth guide</a></p>
+<p>We only use stored procedures where it is absolutely necessary.</p>
+<p>We prefer not to use lazy loading of referenced entities.</p>
+<p>Some collection virtual properties were intentionally removed to motivate developers to find better (faster) way to load data in bulk.</p>
+<h4 id="dependency-injection">Dependency injection</h4>
+<p>We use <a href="http://www.ninject.org/">Ninject</a>.</p>
+<p>There is a separate definition of available services for AMS API and Hangfire Service.</p>
+<h4 id="code-organisation">Code organisation</h4>
+<p>Contracts (data contracts, models and interfaces) are kept in a separate project.</p>
+<p>Logic should be implemented in services, data access (including cache management) should be in repositories.</p>
+<p>Controllers should be lightweight.</p>
+<p>We do not do REST but there is no harm in getting close to it where practical.</p>
+<h4 id="coding-style">Coding style</h4>
+<p>Comment where necessary.</p>
+<p>Use self-explanatory names for classes, methods, properties and variables - we prefer longer names that make sense.</p>
+<p>Log errors and important events using <a href="https://serilog.net/">Serilog</a>.</p>
+<h3 id="runs-controller-development">Runs Controller development</h3>
+<p>Runs Controller has quite large code base considering it's functionality</p>
+<p>Distributor implementation is very complex with multiple layers of services and rather large amount of unused code.</p>
+<p>Despite this complexity it works quite well.</p>
+<p>Thread with caution when attempting to make changes.</p>
+<p>It is likely to be replaced soon so no radical changes are necessary or desirable anymore.</p>
+
+
+</body>
+</html>

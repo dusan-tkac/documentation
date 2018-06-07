@@ -157,4 +157,27 @@
     <PackageReference Include="OpenSoftware.Structurizr.Dgml" Version="1.2.1" />
     <PackageReference Include="Structurizr.Core" Version="0.7.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Documentation\Context.html">
+      <DependentUpon>Context.md</DependentUpon>
+    </None>
+    <None Update="Documentation\Data.html">
+      <DependentUpon>Data.md</DependentUpon>
+    </None>
+    <None Update="Documentation\Deployment.html">
+      <DependentUpon>Deployment.md</DependentUpon>
+    </None>
+    <None Update="Documentation\FunctionalOverview.html">
+      <DependentUpon>FunctionalOverview.md</DependentUpon>
+    </None>
+    <None Update="Documentation\OperationAndSupport.html">
+      <DependentUpon>OperationAndSupport.md</DependentUpon>
+    </None>
+    <None Update="Documentation\Principles.html">
+      <DependentUpon>Principles.md</DependentUpon>
+    </None>
+    <None Update="Documentation\SoftwareArchitecture.html">
+      <DependentUpon>SoftwareArchitecture.md</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

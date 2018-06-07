@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>AMS data model</title>
+</head>
+<body>
+
+    <h3 id="ams-data-model">AMS data model</h3>
+<h4 id="assumption-hierarchy">Assumption Hierarchy</h4>
+<p>Assumptions are organized using a hierarchy with a Project at the top of the hierarchy.</p>
+<p>Projects contain scenarios, scenario contains cases and each case has one Project state.</p>
+<!-- ![Project hierarchy](DataModels/ProjectHierarchy.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/ProjectHierarchy.png" alt="Project hierarchy" /></p>
+<blockquote>
+<p>The relationship between case and state is implemented using linking table.
+This was originally implemented to allow for multiple so called &quot;output states&quot; to be linked to a case as well as a single input state.  Output states were supposed to hold selected model run results and AMS should have allowed for a comparison of model inputs and outputs.
+Project entity references a customer. This information is used for reporting in Runs Controller.
+Case (Model Case) entity can be associated with multiple Labels. Case labels are used in AMS for filtering and they also defined data retention policy used for case model outputs.</p>
+</blockquote>
+<!-- ![Model case labels](DataModels/CaseLabels.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/CaseLabels.png" alt="Model case labels" /></p>
+<p>The State entity represents a collection of objects with values that are used as a model input.</p>
+<p>Objects and their values in a state are organized using a type system.</p>
+<h5 id="type-system-data-model">Type system data model</h5>
+<!-- ![Basic components of the type system](DataModels/ObjectTypeSystem.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/ObjectTypeSystem.png" alt="Basic components of the type system" /></p>
+<p>Object type has a list of object type properties.</p>
+<p>Each object type property references a property (supply chain property).</p>
+<p>Supply chain property represents a well-known term that is re-used for multiple object types – for example &quot;Net rate&quot; is a well-known term used for all object types describing types of equipment.</p>
+<p>Some properties may only have values from a defined set - enumeration. These are called options.</p>
+<p>Object type property defines which properties can be used for particular object type, what is the unit of measure (if any) and what is the data type of its values.
+Of object type property represents an array (of objects), it also references array type – there are two array types – homogeneous and heterogeneous.</p>
+<p>AMS data model also supports object type inheritance – one object type can be used as a &quot;parent&quot; of another object type.</p>
+<p>Derived object types then &quot;inherit&quot; object type properties of their parent.</p>
+<p>Objects are instances of Object Types and Values are instances of Object type properties:</p>
+<!-- ![Objects and values](DataModels/ObjectsAndValues.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/ObjectsAndValues.png" alt="Objects and values" /></p>
+<p>For example Car Dumper 1 and Car Dumper 2 (objects) are instances of object type car dumper.</p>
+<p>Net rate of Car dumper 1 (value) is an instance of Car dumper net rate (object type property).</p>
+<p>As you can see in the diagram above, there is another entity sitting in between object type property and value – object property.</p>
+<p>The original intention was to have this property representing now-abandoned concept of &quot;contexts&quot;. Originally, objects could reference each object type property multiple times – each time in different context. Each of these references was represented with one object property record. I the current solution these contexts were replaced by having multiple object type properties.</p>
+<p>Types of values:</p>
+<ul>
+<li>Atomic values – strings, integers, decimals and property option references (enumeration values)</li>
+<li>Object links (either a reference to not-owned top-level object or a link to nested owned object)</li>
+<li>Array headers</li>
+<li>Array elements – elements reference their header and store element index within the array; all array elements are object links (AMS does not support arrays of atomic values)</li>
+</ul>
+<p>The existence of object link and array values enables for values to be organized into deep hierarchies.</p>
+<h3 id="runs-controller-data-model">Runs Controller data model</h3>
+<p>Following diagram displays main entities of the Runs Controller data model:</p>
+<!--![Runs Controller Project Hierarchy](DataModels/RunsControllerDataModel.png) -->
+<p><img src="https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/DataModels/RunsControllerDataModel.png" alt="Runs Controller Project Hierarchy" /></p>
+<p><strong>Package</strong> information entity (package) represents a unit of execution.</p>
+<p>Packages are grouped into submissions.</p>
+<p><strong>Submission</strong> must reference a <strong>project</strong>.</p>
+<blockquote>
+<p>You can see that this basic hierarchy really duplicates part of AMS data model. That's because Runs Controller existed before AMS and was designed to provide basic grouping for model executions (packages). AMS design adopted this structure.</p>
+</blockquote>
+<p><strong>Package History</strong> records changes in the packages status - when the package was created, when the execution started, when it was cancelled and re-started.</p>
+<p><strong>Case</strong> was added after AMS was created with the intention to provide easier connection between AMS and Runs Controller data but it <strong>was never used</strong>.</p>
+<p><strong>Activity Report</strong> table contains reports generated by running package. It usually contains standard output from the package executable.</p>
+<p><strong>Activity Result</strong> table records package execution results. It is important to note that single package can have multiple results - this happens if package is re-starter.</p>
+<p><strong>Node</strong> record represent a execution server (runs controller client instance). Nodes are loosely (no foreign key) referenced by package results.</p>
+
+
+</body>
+</html>
