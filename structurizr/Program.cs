@@ -450,12 +450,13 @@ namespace structurizr
 
             var documentationFolderPath = Path.Combine(AppContext.BaseDirectory, "Documentation");
 
-            template.AddContextSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Context.md")));
-            template.AddFunctionalOverviewSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "FunctionalOverview.md")));
-            template.AddDataSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Data.md")));
-            template.AddSoftwareArchitectureSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
-            template.AddDeploymentSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Deployment.md")));
-            template.AddOperationAndSupportSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "OperationAndSupport.md")));
+            template.AddContextSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "Context.md")));
+            template.AddFunctionalOverviewSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "FunctionalOverview.md")));
+            template.AddDataSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "Data.md")));
+            template.AddPrinciplesSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "Principles.md")));
+            template.AddSoftwareArchitectureSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
+            template.AddDeploymentSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "Deployment.md")));
+            template.AddOperationAndSupportSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "OperationAndSupport.md")));
 
             #endregion
 
