@@ -455,6 +455,7 @@ namespace structurizr
             template.AddDataSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Data.md")));
             template.AddSoftwareArchitectureSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
             template.AddDeploymentSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "Deployment.md")));
+            template.AddOperationAndSupportSection(amsSoftwareSystem, (FileInfo)new FileInfo(Path.Combine(documentationFolderPath, "OperationAndSupport.md")));
 
             #endregion
 

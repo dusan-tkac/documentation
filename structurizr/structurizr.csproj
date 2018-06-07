@@ -8,14 +8,19 @@
     <None Remove="Documentation\Data.md" />
     <None Remove="Documentation\Deployment.md" />
     <None Remove="Documentation\FunctionalOverview.md" />
+    <None Remove="Documentation\OperationAndSupport.md" />
     <None Remove="Documentation\Screenshots\AssetMap.png" />
     <None Remove="Documentation\Screenshots\CaseMatrix.png" />
+    <None Remove="Documentation\Screenshots\HangfireDeletedJobs.png" />
     <None Remove="Documentation\Screenshots\HangfireJobDetails.png" />
     <None Remove="Documentation\Screenshots\HangfireRecurringJobs.png" />
     <None Remove="Documentation\Screenshots\ImportActualDataToChangeset.png" />
     <None Remove="Documentation\Screenshots\KnowledgeItem.png" />
     <None Remove="Documentation\Screenshots\ModelVersionDetails.png" />
     <None Remove="Documentation\Screenshots\ModelVersionParameters.png" />
+    <None Remove="Documentation\Screenshots\RunsControllerNodes.png" />
+    <None Remove="Documentation\Screenshots\SeqDashboard.png" />
+    <None Remove="Documentation\Screenshots\SeqEvents.png" />
     <None Remove="Documentation\Screenshots\StateComparison.png" />
     <None Remove="Documentation\Screenshots\StateSummary.png" />
     <None Remove="Documentation\Screenshots\BrowseStates.png" />
@@ -36,7 +41,22 @@
     <None Remove="Documentation\SoftwareArchitecture.md" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Documentation\OperationAndSupport.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Deployment.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\HangfireDeletedJobs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\RunsControllerNodes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\SeqDashboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\SeqEvents.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\SoftwareArchitecture.md">
