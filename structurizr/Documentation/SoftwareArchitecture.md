@@ -82,3 +82,15 @@ The Submission Tool and Command Line Tool are legacy applications for creation o
 The Submission Tool is a Windows Forms application with ClickOnce deployment which uses the Command Line Tool internally.
 
 Notification tool starts automatically for all SIMCITY users as defined by group policy.
+
+### Dynamic Views
+
+#### Submission Creation
+
+<!-- ![Submission Creation Dynamic View](embed:SubmissionWorkflow) -->
+![Submission Creation Dynamic View](https://structurizr.com/share/39062/images/SubmissionWorkflow.png)
+
+#### Submission Execution and Post-processing
+
+<!-- ![Submission Execution and Post-processing Dynamic View](embed:SubmissionExecutionWorkflow) -->
+![Submission Execution and Post-processing Dynamic View](https://structurizr.com/share/39062/images/SubmissionExecutionWorkflow.png)

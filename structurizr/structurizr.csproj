@@ -10,6 +10,7 @@
     <None Remove="Documentation\FunctionalOverview.md" />
     <None Remove="Documentation\OperationAndSupport.md" />
     <None Remove="Documentation\Principles.md" />
+    <None Remove="Documentation\InfrastructureArchitecture.md" />
     <None Remove="Documentation\Screenshots\AMSDashboard.png" />
     <None Remove="Documentation\Screenshots\AssetMap.png" />
     <None Remove="Documentation\Screenshots\CaseMatrix.png" />
@@ -88,6 +89,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\SoftwareArchitecture.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\InfrastructureArchitecture.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\HangfireJobDetails.png">

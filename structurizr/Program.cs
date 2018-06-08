@@ -114,7 +114,7 @@ namespace structurizr
 
             var hangfireDashboardContainer = hangfireSoftwareSystem.AddContainer("Hangfire Dashboard", "User interface for Hangfire monitoring and management", "Web Application");
 
-            var hangfireServiceContainer = hangfireSoftwareSystem.AddContainer("Windows Service", "Executes background tasks and recurrent jobs", ".Net Framework Windows Application, Shares code base with AMS API Application");
+            var hangfireServiceContainer = hangfireSoftwareSystem.AddContainer("Hangfire Windows Service", "Executes background tasks and recurrent jobs", ".Net Framework Windows Application, Shares code base with AMS API Application");
 
             var hangfireDatabaseContainer = hangfireSoftwareSystem.AddContainer("Hangfire Database", "Stores hangfire jobs, results and other Hangfire data", "MS SQL Server 2016");
 
@@ -257,6 +257,7 @@ namespace structurizr
 
             controlFrameworkSoftwareSystem.Uses(analyticalDataStoreSoftwareSystem, "Imports (into) and transforms data");
             controlFrameworkSoftwareSystem.Uses(externalDataSourcesSoftwareSystem, "Imports data (from)");
+            controlFrameworkSoftwareSystem.Uses(modelOutputsStorageSoftwareSystem, "Loads data to models outputs databases");
 
             runsControllerSoftwareSystem.Uses(modelOutputsStorageSoftwareSystem, "Generates model outputs");
 
@@ -295,6 +296,7 @@ namespace structurizr
             amsApiApplicationContainer.Uses(hangfireMessageQueuesContainer, "Enqueues and schedules jobs using");
 
             var failoverRelationship = clusterNode2.Uses(clusterNode1, "Failover to", "Windows Server Failover Cluster");
+            var failoverRelationshipReverse = clusterNode1.Uses(clusterNode2, "Failover to", "Windows Server Failover Cluster");
 
             rcDistributorContainer.Uses(rcDatabaseContainer, "Reads from and writes to", "ADO.Net");
             rcClientContainer.Uses(rcDistributorContainer, "Requests packages to execute; send package reports and changes in package status", "WCF, http");
@@ -322,9 +324,9 @@ namespace structurizr
 
             rcClientContainer.Uses(modelOutputsFileSharesContainer, "Generates output files in");
 
+            p2cModelDevelopmentSoftwareSystem.Uses(amsApiApplicationContainer, "Exports model versions to");
+
             #endregion
-
-
 
             #endregion
 
@@ -375,6 +377,7 @@ namespace structurizr
             amsContainerView.Add(hangfireServiceContainer);           
             amsContainerView.Add(hangfireMessageQueuesContainer);
             amsContainerView.Add(hangfireServiceContainer);
+            amsContainerView.Add(p2cModelDevelopmentSoftwareSystem);
 
             #endregion
 
@@ -391,7 +394,7 @@ namespace structurizr
 
             #endregion
 
-            #region Hangfire Container
+            #region Hangfire Container Diagram
 
             var hangfireContainerView = views.CreateContainerView(hangfireSoftwareSystem, "HangfireContainerDiagram", "Hangfire container diagram");
             hangfireContainerView.AddAllContainers();
@@ -404,7 +407,7 @@ namespace structurizr
 
             #endregion
 
-            #region AMS Deployment
+            #region AMS Deployment Diagram
 
             var amsDeploymentView = views.CreateDeploymentView("AMSDeploymentDiagram", "AMS Deployment Diagram");
 
@@ -412,10 +415,11 @@ namespace structurizr
             amsDeploymentView.Add(clusterNode2);
             amsDeploymentView.Add(clusterNode1);
             amsDeploymentView.Add(failoverRelationship);
+            amsDeploymentView.Add(failoverRelationshipReverse);
 
             #endregion
 
-            #region Runs Controller Deployment
+            #region Runs Controller Deployment Diagram
 
             var runsControllerDeploymentView = views.CreateDeploymentView("RunsControllerDeploymentDiagram", "Runs Controller Deployment Diagram");
 
@@ -428,6 +432,35 @@ namespace structurizr
             runsControllerDeploymentView.Add(clusterNode2);
             runsControllerDeploymentView.Add(clusterNode1);
             runsControllerDeploymentView.Add(failoverRelationship);
+            runsControllerDeploymentView.Add(failoverRelationshipReverse);
+
+            #endregion
+
+            #region Submission creation workflow
+
+            var submissionCreationWorkflow = views.CreateDynamicView("SubmissionWorkflow", "Submission creation workflow");
+
+            submissionCreationWorkflow.Add(p2cModelDevelopmentSoftwareSystem, "Exports new model version to AMS", amsSoftwareSystem);
+            submissionCreationWorkflow.Add(scpUser, "Defines project, scenario, case and input state", amsSoftwareSystem);
+            submissionCreationWorkflow.Add(scpUser, "Initiates creation of a new submission", amsSoftwareSystem);
+            submissionCreationWorkflow.Add(amsSoftwareSystem, "Creates Hangfire job to create submission in Runs Controller", hangfireSoftwareSystem);
+            submissionCreationWorkflow.Add(hangfireSoftwareSystem, "Creates submission in Runs Controller", runsControllerSoftwareSystem);
+            submissionCreationWorkflow.Add(amsSoftwareSystem, "Receives submission creation notification from Hangfire through Redis", hangfireSoftwareSystem);
+            submissionCreationWorkflow.Add(scpUser, "Receives on-screen notification about created submission", amsSoftwareSystem);
+
+            #endregion
+
+            #region Submission execution and post-processing
+            
+            var submissionExecutionWorkflow = views.CreateDynamicView("SubmissionExecutionWorkflow", "Submission execution workflow");
+
+            submissionExecutionWorkflow.Add(runsControllerSoftwareSystem, "Finished submission packages produce model outputs", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(hangfireSoftwareSystem, "Registers produced model outputs", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(hangfireSoftwareSystem, "Regularly checks submissions and creates post-processing submission", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(runsControllerSoftwareSystem, "Post-processing package produces post-processed model outputs", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(controlFrameworkSoftwareSystem, "Loads post-processed model outputs to database and archive", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(hangfireSoftwareSystem, "Performs post-load processing", modelOutputsStorageSoftwareSystem);
+            submissionExecutionWorkflow.Add(spotfireSoftwareSystem, "Loaded post-processed outputs are available in Spotfire", modelOutputsStorageSoftwareSystem);
 
             #endregion
 
@@ -457,10 +490,10 @@ namespace structurizr
             template.AddSoftwareArchitectureSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "SoftwareArchitecture.md")));
             template.AddDeploymentSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "Deployment.md")));
             template.AddOperationAndSupportSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "OperationAndSupport.md")));
-
+            template.AddInfrastructureArchitectureSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "InfrastructureArchitecture.md")));
             #endregion
 
-            #region Upload and generate local DGML
+            #region Upload; generate local DGML; generate local PlantUML
 
             // upload workspace to Structurizr (https://structurizr.com/)
             UploadWorkspaceToStructurizr(workspace);
