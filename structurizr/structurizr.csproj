@@ -7,6 +7,7 @@
     <None Remove="Documentation\Context.md" />
     <None Remove="Documentation\Data.md" />
     <None Remove="Documentation\Deployment.md" />
+    <None Remove="Documentation\DocumentationOfDocumentation.md" />
     <None Remove="Documentation\FunctionalOverview.md" />
     <None Remove="Documentation\OperationAndSupport.md" />
     <None Remove="Documentation\Principles.md" />
@@ -49,6 +50,9 @@
     <None Remove="Documentation\SoftwareArchitecture.md" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Documentation\DocumentationOfDocumentation.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Documentation\OperationAndSupport.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -186,6 +190,9 @@
     <PackageReference Include="Structurizr.Core" Version="0.7.1" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Documentation\Context - Copy.html">
+      <DependentUpon>Context.md</DependentUpon>
+    </None>
     <None Update="Documentation\Context.html">
       <DependentUpon>Context.md</DependentUpon>
     </None>

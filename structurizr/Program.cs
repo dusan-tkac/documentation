@@ -94,8 +94,8 @@ namespace structurizr
 
             #region AMS Containers
 
-            var amsLightswitchWebApplicationContainer = amsSoftwareSystem.AddContainer("LightSwitch Web Application", 
-                "Main navigation, browse and edit screens, shell for some custom JavaScript controls", 
+            var amsLightswitchWebApplicationContainer = amsSoftwareSystem.AddContainer("LightSwitch Web Application",
+                "Main navigation, browse and edit screens, shell for some custom JavaScript controls",
                 "LightSwitch HTML Client (SPA), Knockout JS");
 
             var amsAspNetMvcWebApplicationContainer = amsSoftwareSystem.AddContainer("MVC Web Application",
@@ -131,8 +131,8 @@ namespace structurizr
 
             #region Runs Controller Containers
 
-            var rcDistributorContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Distributor", 
-                "Maintains package queue; distributes packages to clients; implements APIs for submission creation and portal", 
+            var rcDistributorContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Distributor",
+                "Maintains package queue; distributes packages to clients; implements APIs for submission creation and portal",
                 ".Net, C#, Windows Service");
 
             var rcClientContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Client", "Executes packages", ".Net, C#, Windows Service");
@@ -141,16 +141,16 @@ namespace structurizr
 
             var rcReportingAPIServiceContainer = runsControllerSoftwareSystem.AddContainer("RunsController Reporting API Service", "Provides APIs for reporting on Runs Controller data", "ASP.NET Core, Windows Service");
 
-            var rcCommandLineToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Command Line Tool", 
-                "Command Line interface to Runs Controller Distributor; allows for creation of Arena packages", 
+            var rcCommandLineToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Command Line Tool",
+                "Command Line interface to Runs Controller Distributor; allows for creation of Arena packages",
                 ".Net, C#, console application");
 
-            var rcSubmissionToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Submission Tool", 
-                "The tools for creation of Arena submissions", 
+            var rcSubmissionToolContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Submission Tool",
+                "The tools for creation of Arena submissions",
                 "C# Windows Forms application, ClickOnce deployment");
 
-            var rcNotificationClientContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Notification Client", 
-                "Monitors user's submissions and displays notification when submission is finished", 
+            var rcNotificationClientContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Notification Client",
+                "Monitors user's submissions and displays notification when submission is finished",
                 "C# Windows Forms application");
 
             var rcPortalContainer = runsControllerSoftwareSystem.AddContainer("Runs Controller Portal", "Runs Controller user interface", "ASP.NET MVC web application");
@@ -374,7 +374,7 @@ namespace structurizr
             amsContainerView.Add(scpUser);
             amsContainerView.Add(adminUser);
 
-            amsContainerView.Add(hangfireServiceContainer);           
+            amsContainerView.Add(hangfireServiceContainer);
             amsContainerView.Add(hangfireMessageQueuesContainer);
             amsContainerView.Add(hangfireServiceContainer);
             amsContainerView.Add(p2cModelDevelopmentSoftwareSystem);
@@ -451,7 +451,7 @@ namespace structurizr
             #endregion
 
             #region Submission execution and post-processing
-            
+
             var submissionExecutionWorkflow = views.CreateDynamicView("SubmissionExecutionWorkflow", "Submission execution workflow");
 
             submissionExecutionWorkflow.Add(runsControllerSoftwareSystem, "Finished submission packages produce model outputs", modelOutputsStorageSoftwareSystem);
@@ -493,6 +493,9 @@ namespace structurizr
             template.AddInfrastructureArchitectureSection(amsSoftwareSystem, new FileInfo(Path.Combine(documentationFolderPath, "InfrastructureArchitecture.md")));
             #endregion
 
+            // documentation on documentation
+            AddDocumentationDiagram(workspace, template);
+            
             #region Upload; generate local DGML; generate local PlantUML
 
             // upload workspace to Structurizr (https://structurizr.com/)
@@ -511,6 +514,102 @@ namespace structurizr
             File.WriteAllText("c4model_plant_UML.txt", stringWriter.ToString());
 
             #endregion
+        }
+
+        private static void AddDocumentationDiagram(Workspace workspace, StructurizrDocumentationTemplate template )
+        {
+            Model model = workspace.Model;
+
+            SoftwareSystem documentationProjectSoftwareSystem = model.AddSoftwareSystem(
+                Location.Internal,
+                "Documentation Project",
+                "Visual Studio Project (or VS Code Workspace) containing all documentation artifacts");
+
+            Container diagramsDefinitionsContainer = documentationProjectSoftwareSystem.AddContainer("Diagram Definitions",
+                "This is core Structurizr Library functionality - architecture diagrams defined as a code",
+                "C# code");
+
+            Container documentationSectionsContainer = documentationProjectSoftwareSystem.AddContainer("Documentation Sections",
+                "Documentation sections in Markdown format - these can reference screenshots and diagrams",
+                "Markdown");
+
+            Container screenshotsContainer = documentationProjectSoftwareSystem.AddContainer("Screenshots",
+                "Screenshots and other images that we want to include in the documentation",
+                "PNG");
+
+            SoftwareSystem gitHubRepositorySoftwareSystem = model.AddSoftwareSystem(
+                Location.Unspecified,
+                "GitHub Repository",
+                "Used as remote repository; we use it as online host for screenshots");
+
+            Container onlineScreenshotsContainer = gitHubRepositorySoftwareSystem.AddContainer("Online Screenshots", "Screenshots in GitHub available with public URL", "PNG, HTTP");
+
+            SoftwareSystem structurizrWorkspaceSoftwareSystem = model.AddSoftwareSystem(
+                Location.Unspecified,
+                "Online Structurizr Workspace",
+                "Transforms diagram definitions into interactive diagrams and also hosts diagrams as images; hosts online documentation");
+
+            Container interactiveDiagramsContainer = structurizrWorkspaceSoftwareSystem.AddContainer("Interactive Diagrams", "User can modify diagram layout; there is additional functionality that helps getting architecture insights", "Structurizr SAAS");
+
+            Container diagramsAsImagesContainer = structurizrWorkspaceSoftwareSystem.AddContainer("Diagram PNGs", "Interactive diagrams are automatically exported to PNG format and made available online", "PNG, HTTP");
+
+            Container documentationAsHtmlContainer = structurizrWorkspaceSoftwareSystem.AddContainer("Documentation Online", "Markdown documents are automatically presented as online HTML", "HTTP, HTML");
+
+            // what uses what
+            documentationProjectSoftwareSystem.Uses(gitHubRepositorySoftwareSystem, "Uses it as a Git Remote");
+
+            documentationSectionsContainer.Uses(onlineScreenshotsContainer, "Markdown documents reference online screenshots on GitHub");
+
+            documentationProjectSoftwareSystem.Uses(structurizrWorkspaceSoftwareSystem, "Pushes diagram definitions and documentation sections into Structurizr workspace");
+
+            documentationAsHtmlContainer.Uses(diagramsAsImagesContainer, "Generated HTML references diagrams as images (replacement for customer references to interactive diagrams)");
+
+            documentationAsHtmlContainer.Uses(onlineScreenshotsContainer, "Generated HTML references online screenshots on GitHub");
+
+            interactiveDiagramsContainer.Uses(diagramsAsImagesContainer, "Are transformed to images automatically");
+
+            diagramsDefinitionsContainer.Uses(interactiveDiagramsContainer, "Code is transformed to interactive diagrams");
+
+            documentationSectionsContainer.Uses(documentationAsHtmlContainer, "Markdown documents are presented as HTML on Structurizr");
+
+            documentationSectionsContainer.Uses(diagramsAsImagesContainer, "Markdown documents reference diagrams hosted on Structurizr");
+
+            // diagrams
+            ViewSet views = workspace.Views;
+
+            SystemContextView documentationSystemContextView = views.CreateSystemContextView(
+                documentationProjectSoftwareSystem,
+                "DocumentationSystemContext",
+                "Documentation System Context diagram.");
+
+            documentationSystemContextView.AddNearestNeighbours(documentationProjectSoftwareSystem);
+
+            ContainerView documentationContainerView = views.CreateContainerView(documentationProjectSoftwareSystem, "DocumentationContainerDiagram", "Documentation container diagram");
+
+            documentationContainerView.AddAllContainers();
+
+            foreach (var githubContainer in gitHubRepositorySoftwareSystem.Containers)
+            {
+                githubContainer.AddTags("GitHub Container");
+                documentationContainerView.Add(githubContainer);
+            }
+
+            foreach (var structurizrContainer in structurizrWorkspaceSoftwareSystem.Containers)
+            {
+                structurizrContainer.AddTags("Structurizr Container");
+                documentationContainerView.Add(structurizrContainer);
+            }
+
+            // styles
+            Styles styles = views.Configuration.Styles;
+            styles.Add(new ElementStyle("GitHub Container") { Background = "#00BFFF" });
+            styles.Add(new ElementStyle("Structurizr Container") { Background = "#ADFF2F" });
+
+            // documentation sections
+            var documentationFolderPath = Path.Combine(AppContext.BaseDirectory, "Documentation");
+
+            template.AddSection(documentationProjectSoftwareSystem, "Documentation system", 1,
+                new FileInfo(Path.Combine(documentationFolderPath, "DocumentationOfDocumentation.md")));
         }
 
         private static void UploadWorkspaceToStructurizr(Workspace workspace)
