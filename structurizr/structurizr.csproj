@@ -20,6 +20,7 @@
     <None Remove="Documentation\Screenshots\HangfireRecurringJobs.png" />
     <None Remove="Documentation\Screenshots\ImportActualDataToChangeset.png" />
     <None Remove="Documentation\Screenshots\KnowledgeItem.png" />
+    <None Remove="Documentation\Screenshots\MessageQueueErrorSeq.png" />
     <None Remove="Documentation\Screenshots\ModelVersionDetails.png" />
     <None Remove="Documentation\Screenshots\ModelVersionParameters.png" />
     <None Remove="Documentation\Screenshots\RunsControllerNodes.png" />
@@ -63,6 +64,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\HangfireDeletedJobs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documentation\Screenshots\MessageQueueErrorSeq.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Documentation\Screenshots\RunsControllerNodes.png">

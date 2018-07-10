@@ -63,3 +63,48 @@ Following documents list and explain configuration of AMS and Runs Controller ma
 * [AMS Deployment and Configuration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Eb5PqpC0fiBLqz7sMwdUo64BczSPCoPSKmtkdL9N5aQJQw)
 * [Runs Controller Deployment and Configuration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/EW8RUIX5IOdNgpNXym7bm8MB492FgA4Dgd6et90vh1UNxQ)
 * [Runs Controller Reporting API Deployment and Confuguration](https://spo.bhpbilliton.com/:w:/s/WAIOFLISCA/Ebuf3OrtIcNLnrgIXcBhBE0BtM3_znLzj8DLHQ_dCrLmrw)
+
+### Previous errors and problem solving
+
+#### Background processing in Hangfire stopped and users were not able to create submissions
+
+In Seq there were errors logged when users tried to create submissions:
+
+![Message Queue Error in Seq](https://raw.githubusercontent.com/dusan-tkac/documentation/master/structurizr/Documentation/Screenshots/MessageQueueErrorSeq.png)
+
+**Error text:**
+```
+ScheduleSubmissionCreationInRunsControllerFailed
+```
+**Exception:**
+```
+Hangfire.BackgroundJobClientException: Background job creation failed. See inner exception for details. ---> System.Messaging.MessageQueueException: Insufficient resources to perform operation. at System.Messaging.MessageQueue.SendInternal
+```
+
+**Route cause:**
+
+Hangfire uses MSMQ for creation and scheduling of background jobs.
+
+For production these message queues are configured on IORPER-WEB01.
+
+There are multiple message queues used - all private and originally with journal messages enabled.
+Journal messages were not being processed and their number grew to an extent where it prevented further message creation.
+
+When MSMQ windows service was stopped it could not be restarted.
+The error (when trying to start the MSMQ service) was:
+```
+The Message Queuing service terminated with the following service-specific error: 
+%%3222143985
+```
+
+**Resolution:**
+
+> Warning: This approach removes all unprocessed messages from all queues.
+
+Based on [Unable to start Message Queuing service: “The Message Queuing service terminated with service-specific error %%-1072823311”](http://www.mikerodionov.com/2016/02/the-message-queuing-service-terminated-with-service-specific-error-1072823311/)
+
+* Stop MSMQ service.
+* Delete all files (*.mq and QMLog) from the C:\Windows\System32\msmq\storage folder.
+* Change registry value \\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSMQ\Parameters\LogDataCreated to 0.
+* Start MSMQ service.
+* Disable journal messages for Hangfire queues
